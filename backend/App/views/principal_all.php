@@ -86,54 +86,57 @@
                         <div style="background-color: rgb( 0 145 135 ); border-radius: 20px; height: 38px;"></div>
                     </div>
                     <h4 class="mb-1 mt-4 text-left"><i class="fa fa-cash-register"></i> Comprobantes y estatus de pago</h4>
-                </div>
 
-                <div class="card-body p-3">
 
-                    <div class="card-body px-0 pb-0">
-                        <div class="tab-content" id="v-pills-tabContent">
-                            <div class="tab-pane fade show position-relative active height-350 border-radius-lg" id="Invitados" role="tabpanel" aria-labelledby="Invitados">
-                                <div class="table-responsive p-0">
-                                    <table class="align-items-center mb-0 table table-borderless" id="user_list_table">
-                                        <thead class="thead-light">
-                                        <tr>
-                                            <th class="text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7"></th>
-                                            <th class="text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">Nombre del Curso o Congreso</th>
-                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estatus</th>
-                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Metodo de Pago</th>
-                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><i class="fa fa-eye"></i></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <?php echo $tabla; ?>
-                                        </tbody>
-                                    </table>
+                    <div class="card-body p-3">
+
+                        <div class="card-body px-0 pb-0">
+                            <div class="tab-content" id="v-pills-tabContent">
+                                <div class="tab-pane fade show position-relative active height-350 border-radius-lg" id="Invitados" role="tabpanel" aria-labelledby="Invitados">
+                                    <div class="table-responsive p-0">
+                                        <table class="align-items-center mb-0 table table-borderless" id="user_list_table">
+                                            <thead class="thead-light">
+                                            <tr>
+                                                <th class="text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7"></th>
+                                                <th class="text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">Nombre del Curso o Congreso</th>
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estatus</th>
+                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Metodo de Pago</th>
+                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><i class="fa fa-eye"></i></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php echo $tabla; ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade position-relative height-350 border-radius-lg" id="Faltantes" role="tabpanel" aria-labelledby="Faltantes">
+                                    <div class="table-responsive p-0">
+                                        <table class="align-items-center mb-0 table table-borderless" id="user_list_table_faltante">
+                                            <thead class="thead-light">
+                                            <tr>
+
+                                                <th class="text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">Usuario</th>
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Email</th>
+                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Teléfono</th>
+                                                <!-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th> -->
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php echo $tabla_faltantes; ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="tab-pane fade position-relative height-350 border-radius-lg" id="Faltantes" role="tabpanel" aria-labelledby="Faltantes">
-                                <div class="table-responsive p-0">
-                                    <table class="align-items-center mb-0 table table-borderless" id="user_list_table_faltante">
-                                        <thead class="thead-light">
-                                        <tr>
-
-                                            <th class="text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">Usuario</th>
-                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Email</th>
-                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Teléfono</th>
-                                            <!-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th> -->
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <?php echo $tabla_faltantes; ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
                         </div>
 
                     </div>
-
                 </div>
+
+
                 <!-- Fin congreso -->
 
 
