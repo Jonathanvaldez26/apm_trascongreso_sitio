@@ -77,11 +77,7 @@
         <!-- End Navbar -->
         <div class="container-fluid py-0">
 
-        <div class="row mt-3">
-                <?php //echo $card_cursos;?>
-        </div>        
-           
-            <div class="card col-lg-10 mt-lg-5 mt-1" >
+            <div class="card col-lg-8 mt-lg-5 mt-1" >
 
                 <!--Congreso  -->
                 <div class="card-header pb-0 p-3">
