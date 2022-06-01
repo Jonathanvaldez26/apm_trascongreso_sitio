@@ -77,6 +77,8 @@
         <!-- End Navbar -->
         <div class="container-fluid py-0">
 
+            <div class="card col-lg-8 mt-lg-5 mt-1" >
+
                 <!--Congreso  -->
                 <div class="card-header pb-0 p-3">
                     <div class="row">
@@ -135,7 +137,10 @@
                 </div>
 
 
+                <!-- Fin congreso -->
 
+
+            </div>
 
         </div>
 
