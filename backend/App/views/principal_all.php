@@ -75,69 +75,150 @@
 
 
         <!-- End Navbar -->
-        <div class="container-fluid py-0">
+        <div class="container-fluid py-">
+            <div class="row mt-0 m-auto">
+                <div class="col-lg-1">
+                </div>
+                <div class="card col-lg-10 mt-lg-5 mt-1">
+                    <div class="card-header pb-0 p-3">
+                        <div class="row">
+                            <img src="/assets/img/cinta_menu.jpeg" style="border-radius: 20px; height: 38px;" alt="">
+                        </div>
+                        <h4 class="mb-1 mt-4 text-left"><i class="fa fa-desktop" aria-hidden="true"></i> Talleres</h4>
+                        <p>(Usted tiene disponible los siguientes cursos)</p>
 
-            <div class="card col-lg-8 mt-lg-5 mt-1" >
-
-                <!--Congreso  -->
-                <div class="card-header pb-0 p-3">
-                    <h4 class="mb-1 mt-4 text-left"><i class="fa fa-cash-register"></i> Comprobantes y estatus de pago</h4>
-
-
+                    </div>
                     <div class="card-body p-3">
 
-                        <div class="card-body px-0 pb-0">
-                            <div class="tab-content" id="v-pills-tabContent">
-                                <div class="tab-pane fade show position-relative active height-350 border-radius-lg" id="Invitados" role="tabpanel" aria-labelledby="Invitados">
-                                    <div class="table-responsive p-0">
-                                        <table class="align-items-center mb-0 table table-borderless" id="user_list_table">
-                                            <thead class="thead-light">
-                                            <tr>
-                                                <th class="text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7"></th>
-                                                <th class="text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">Nombre del Curso o Congreso</th>
-                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estatus</th>
-                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Metodo de Pago</th>
-                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><i class="fa fa-eye"></i></th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <?php echo $tabla; ?>
-                                            </tbody>
-                                        </table>
+                        <div class="row mt-3">
+
+
+
+
+                            <div class="col-12 col-md-3">
+                                <div class="card card-body card-course p-0 border-radius-15">
+                                    <input class="curso" hidden="" type="text" value="wse7bd" readonly="">
+                                    <div class="caratula-content">
+                                        <!--<a href="/Talleres/Video/wse7bd">-->
+                                        <a href="/Talleres/Programa/2022-05-17">
+                                            <img class="caratula-img border-radius-15" src="/caratulas/TALLER DE NEUROFISIOLOGIA-GIF.gif">
+                                        </a>
+                                        <div class="duracion"><p>05:00:00</p></div>
+                                        <!--button class="btn btn-outline-danger"></button-->
+                                        <span id="video_wse7bd" data-clave="wse7bd" class="fas fa-heart heart-not-like p-2" aria-hidden="true"></span>                        <div class="row">
+                                            <div class="col-11 m-auto" id="">
+                                                <progress class="barra_progreso_small mt-2" max="18000" value="18000"></progress>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                    <a href="/Talleres/Video/wse7bd">
+                                        <h6 class="text-left mx-3 mt-2" style="color: black;">Taller de neurofisiología virtual para médicos neurólogos</h6>
 
-                                <div class="tab-pane fade position-relative height-350 border-radius-lg" id="Faltantes" role="tabpanel" aria-labelledby="Faltantes">
-                                    <div class="table-responsive p-0">
-                                        <table class="align-items-center mb-0 table table-borderless" id="user_list_table_faltante">
-                                            <thead class="thead-light">
-                                            <tr>
 
-                                                <th class="text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">Usuario</th>
-                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Email</th>
-                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Teléfono</th>
-                                                <!-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th> -->
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <?php echo $tabla_faltantes; ?>
-                                            </tbody>
-                                        </table>
+
+                                        <p class="text-left mx-3 text-sm">2022-05-17 16:00:00
+                                            <br>
+                                            1049 vistas
+                                            <br> <br>
+                                            <b>Avance: 100 %</b>
+                                        </p>
+                                        <div class="ms-3 me-3 msg-encuesta px-2 py-1">Se ha habilitado un examen para este taller</div><br><br>                    </a>
+
+                                    <div>
+
                                     </div>
                                 </div>
                             </div>
 
-                        </div>
+                            <script>
+                                // $('#video_wse7bd').on('click', function(){
+                                //     let like = $('#video_wse7bd').hasClass('heart-like');
 
+                                //     if (like){
+                                //         $('#video_wse7bd').removeClass('heart-like').addClass('heart-not-like')
+                                //     } else {
+                                //         $('#video_wse7bd').removeClass('heart-not-like').addClass('heart-like')
+                                //     }
+                                // });
+                            </script>
+
+
+
+                            <div class="col-12 col-md-3">
+                                <div class="card card-body card-course p-0 border-radius-15">
+                                    <input class="curso" hidden="" type="text" value="eyovw6" readonly="">
+                                    <div class="caratula-content">
+                                        <!--<a href="/Talleres/Video/eyovw6">-->
+                                        <a href="/Talleres/Programa/2022-05-21">
+                                            <img class="caratula-img border-radius-15" src="/caratulas/SIMPOSIO-GIF.gif">
+                                        </a>
+                                        <div class="duracion"><p>04:00:00</p></div>
+                                        <!--button class="btn btn-outline-danger"></button-->
+                                        <span id="video_eyovw6" data-clave="eyovw6" class="fas fa-heart heart-like p-2" aria-hidden="true"></span>                        <div class="row">
+                                            <div class="col-11 m-auto" id="">
+                                                <progress class="barra_progreso_small mt-2" max="14400" value="14000"></progress>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="/Talleres/Video/eyovw6">
+                                        <h6 class="text-left mx-3 mt-2" style="color: black;">Simposio</h6>
+
+
+
+                                        <p class="text-left mx-3 text-sm">2022-05-21 13:00:00
+                                            Neurología Neonatal: Sociedad Mexicana de Neurología
+                                            Pediátrica, Federación Nacional de Neonatología y
+                                            Newborn Brain Society (NBS)<br>
+                                            950 vistas
+                                            <br> <br>
+                                            <b>Avance: 97 %</b>
+                                        </p>
+                                        <div class="ms-3 me-3 msg-encuesta px-2 py-1">Se ha habilitado un examen para este taller</div><br><br>                    </a>
+
+                                    <div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <script>
+                                // $('#video_eyovw6').on('click', function(){
+                                //     let like = $('#video_eyovw6').hasClass('heart-like');
+
+                                //     if (like){
+                                //         $('#video_eyovw6').removeClass('heart-like').addClass('heart-not-like')
+                                //     } else {
+                                //         $('#video_eyovw6').removeClass('heart-not-like').addClass('heart-like')
+                                //     }
+                                // });
+                            </script>                    </div>
+
+                        <div hidden="" class="row mt-4">
+                            <div class="col-xl-4 col-md-3 mb-xl-0 mb-4 "></div>
+                            <table class="table align-items-center mb-0 table table-striped table-bordered">
+                                <thead>
+                                <tr>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-10">Nombre</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-10">Fecha de curso</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-10">¿Tiene costo?</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-10">Modalidad</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                            <div class="col-xl-4 col-md-0 mb-xl-0 mb-4"></div>
+                        </div>
+                        <div class="row">
+                            <div class="button-row d-flex mt-4 col-12">
+                                <a class="btn bg-gradient-light mb-0 js-btn-prev" href="/Home/" title="Prev">Regresar</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-
-                <!-- Fin congreso -->
-
-
             </div>
-
+            <br>
+            <br>
         </div>
 
     </main>
