@@ -66,7 +66,7 @@
                     <div class="tab-content" id="v-pills-tabContent">
                             <div class="tab-pane fade show position-relative active height-350 border-radius-lg" id="Invitados" role="tabpanel" aria-labelledby="Invitados">
                                 <div>
-                                    <p> Usted esta en la fila, para agilizar el proceso seleccione los productos que desea pagar.</p>
+                                    <p style="font-size: 10px"> Usted esta en la fila, para agilizar el proceso seleccione los productos que desea pagar.</p>
                                 </div>
                                 <div class="table-responsive p-0">
                                     <table class="align-items-center mb-0 table table-borderless" id="user_list_table">
