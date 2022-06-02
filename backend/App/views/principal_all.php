@@ -77,7 +77,7 @@
         <!-- End Navbar -->
         <div class="container-fluid py-0">
 
-            <div class="card col-lg-12 mt-lg-12 mt-1" >
+            <div class="card col-lg-12 mt-lg-4 mt-1" >
 
                 <div class="card-body px-0 pb-0">
                         <div class="tab-content" id="v-pills-tabContent">
