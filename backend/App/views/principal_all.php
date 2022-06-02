@@ -77,12 +77,7 @@
         <!-- End Navbar -->
         <div class="container-fluid py-0">
 
-            <div class="card col-lg-12 mt-lg-5 mt-1" >
-
-                <!--Congreso  -->
-                <div class="card-header pb-0 p-1">
-                    <h4 class="mb-1 mt-4 text-left"><i class="fa fa-cash-register"></i> Comprobantes y estatus de pago</h4>
-                </div>
+            <div class="card col-lg-12 mt-lg-12 mt-1" >
 
                 <div class="card-body px-0 pb-0">
                         <div class="tab-content" id="v-pills-tabContent">
@@ -124,11 +119,7 @@
                                 </div>
                             </div>
                         </div>
-
-                    </div>
-
-                <!-- Fin congreso -->
-
+                </div>
 
             </div>
 
