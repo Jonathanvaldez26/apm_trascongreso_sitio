@@ -66,6 +66,7 @@
                     <div class="tab-content" id="v-pills-tabContent">
                             <div class="tab-pane fade show position-relative active height-350 border-radius-lg" id="Invitados" role="tabpanel" aria-labelledby="Invitados">
                                 <div class="table-responsive p-0">
+                                    Usted esta en la fila virtual
                                     <table class="align-items-center mb-0 table table-borderless" id="user_list_table">
                                         <thead class="thead-light">
                                             <tr>
