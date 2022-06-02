@@ -88,9 +88,7 @@
                     <h4 class="mb-1 mt-4 text-left"><i class="fa fa-cash-register"></i> Comprobantes y estatus de pago</h4>
                 </div>
 
-                <div class="card-body p-3">
-
-                    <div class="card-body px-0 pb-0">
+                <div class="card-body px-0 pb-0">
                         <div class="tab-content" id="v-pills-tabContent">
                             <div class="tab-pane fade show position-relative active height-350 border-radius-lg" id="Invitados" role="tabpanel" aria-labelledby="Invitados">
                                 <div class="table-responsive p-0">
@@ -133,7 +131,6 @@
 
                     </div>
 
-                </div>
                 <!-- Fin congreso -->
 
 
