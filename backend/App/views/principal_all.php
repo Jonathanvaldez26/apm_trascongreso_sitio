@@ -1,21 +1,9 @@
-<!--<title>
-    Home 
-</title>-->
 <?php echo $header; ?>
 <link id="pagestyle" href="/assets/css/soft-ui-dashboard.css?v=1.0.5" rel="stylesheet" />
 <body class="bg-body" id="body-home">
 
-<!-- <div id="content"> -->
-    
     <main>
-        <!-- <video class="video-fondo" autoplay="true" muted="false" loop="true" src="/videos/dfic.mp4" type="video/mp4">
-        </video> -->
-
-        <!-- <div class="barra-amarilla"></div> -->
-
         <div class="barra-verde"></div>
-
-        <!-- Navbar -->
         <nav class="navbar navbar-main navbar-expand-lg bg-gradient-yellow position-sticky mt-4 top-1 px-0 mx-4 shadow-none border-radius-xl z-index-sticky" id="navbarBlur" data-scroll="true">
             <div class="container-fluid py-1 px-3">
                 <nav aria-label="breadcrumb">
@@ -72,61 +60,30 @@
                 </div>
             </div>
         </nav>
-
-
-        <!-- End Navbar -->
         <div class="container-fluid py-0">
-
             <div class="card col-lg-12 mt-lg-4 mt-1" >
-
                 <div class="card-body px-0 pb-0">
-                        <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-content" id="v-pills-tabContent">
                             <div class="tab-pane fade show position-relative active height-350 border-radius-lg" id="Invitados" role="tabpanel" aria-labelledby="Invitados">
                                 <div class="table-responsive p-0">
                                     <table class="align-items-center mb-0 table table-borderless" id="user_list_table">
                                         <thead class="thead-light">
-                                        <tr>
-                                            <th class="text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7"></th>
-                                            <th class="text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">Nombre del Curso o Congreso</th>
-                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estatus</th>
-                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Metodo de Pago</th>
-                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><i class="fa fa-eye"></i></th>
-                                        </tr>
+                                            <tr>
+                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Metodo de Pago</th>
+                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><i class="fa fa-eye"></i></th>
+                                            </tr>
                                         </thead>
                                         <tbody>
-                                        <?php echo $tabla; ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-                            <div class="tab-pane fade position-relative height-350 border-radius-lg" id="Faltantes" role="tabpanel" aria-labelledby="Faltantes">
-                                <div class="table-responsive p-0">
-                                    <table class="align-items-center mb-0 table table-borderless" id="user_list_table_faltante">
-                                        <thead class="thead-light">
-                                        <tr>
-
-                                            <th class="text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">Usuario</th>
-                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Email</th>
-                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Teléfono</th>
-                                            <!-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th> -->
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <?php echo $tabla_faltantes; ?>
+                                            <?php echo $tabla; ?>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
                 </div>
-
             </div>
-
         </div>
-
     </main>
-    <?php echo $modalComprar?>
 
     <script type='text/javascript'>
 
