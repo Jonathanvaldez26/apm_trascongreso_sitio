@@ -64,10 +64,18 @@
             <div class="card col-lg-12 mt-lg-4 mt-1" >
                 <div class="card-body px-0 pb-0">
                     <div class="tab-content" id="v-pills-tabContent">
+                        <div class="tab-pane fade show position-relative active height-350 border-radius-lg" id="Invitados" role="tabpanel" aria-labelledby="Invitados">
+                            <div>
+                                <p style="font-size: 14px"> Usted esta en la fila, para agilizar el proceso seleccione los productos que desea pagar.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card col-lg-12 mt-lg-4 mt-1" >
+                <div class="card-body px-0 pb-0">
+                    <div class="tab-content" id="v-pills-tabContent">
                             <div class="tab-pane fade show position-relative active height-350 border-radius-lg" id="Invitados" role="tabpanel" aria-labelledby="Invitados">
-                                <div>
-                                    <p style="font-size: 10px"> Usted esta en la fila, para agilizar el proceso seleccione los productos que desea pagar.</p>
-                                </div>
                                 <div class="table-responsive p-0">
                                     <table class="align-items-center mb-0 table table-borderless" id="user_list_table">
                                         <thead class="thead-light">
