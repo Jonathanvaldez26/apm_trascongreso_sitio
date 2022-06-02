@@ -5578,7 +5578,7 @@ fieldset:disabled .btn {
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #fcfcfc!important;
+  background-color: #fff;
   background-clip: border-box;
   border: 0 solid rgba(0, 0, 0, 0.125);
   border-radius: 1rem;
@@ -37391,7 +37391,7 @@ iframe.video_programa{
 }
 
 .card{
-  background-color: transparent!important;
+  background-color: #569ff7!important;
 }
 /* .heart-like:hover{
   color: #ffffff80;
