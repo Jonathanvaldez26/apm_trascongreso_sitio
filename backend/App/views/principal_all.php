@@ -62,17 +62,10 @@
         </nav>
         <div class="container-fluid py-0">
             <div class="card col-lg-12 mt-lg-4 mt-1" >
-                <div class="card-body px-0 pb-0">
-                    <div class="tab-content" id="v-pills-tabContent">
-                        <div class="tab-pane fade show position-relative active height-350 border-radius-lg" id="Invitados" role="tabpanel" aria-labelledby="Invitados">
-                            <div>
-                                <p style="font-size: 14px"> Usted esta en la fila, para agilizar el proceso seleccione los productos que desea pagar.</p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="card-header pb-0 p-3">
+                    <h4 class="mb-1 mt-4 text-left"><i class="fa fa-desktop" aria-hidden="true"></i> Talleres</h4>
+                    <p>(Usted tiene disponible los siguientes cursos)</p>
                 </div>
-            </div>
-            <div class="card col-lg-12 mt-lg-4 mt-1" >
                 <div class="card-body px-0 pb-0">
                     <div class="tab-content" id="v-pills-tabContent">
                             <div class="tab-pane fade show position-relative active height-350 border-radius-lg" id="Invitados" role="tabpanel" aria-labelledby="Invitados">
