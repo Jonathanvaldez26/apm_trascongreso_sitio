@@ -1,5 +1,6 @@
 <?php echo $header; ?>
 <link id="pagestyle" href="/assets/css/soft-ui-dashboard.css?v=1.0.5" rel="stylesheet" />
+
 <body class="bg-body" id="body-home">
 
     <main>
@@ -29,7 +30,7 @@
                     </ol>
                 </nav>
 
-                <input type="hidden" name="datos" id="datos" value="<?php echo $datos;?>">
+                <input type="hidden" name="datos" id="datos" value="<?php echo $datos; ?>">
                 <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                     <div class="ms-md-auto pe-md-3 d-flex align-items-center">
                         <div class="input-group"></div>
@@ -41,11 +42,11 @@
                                 <i class="fa fa-user me-sm-0"></i>
                                 <!-- <span class="d-sm-inline d-none">Mi Cuenta</span> -->
                                 <?php
-                                    $apellido = $datos['surname'];                                    
-                                    $arr1 = str_split($apellido);                         
-                                   
+                                $apellido = $datos['surname'];
+                                $arr1 = str_split($apellido);
+
                                 ?>
-                                <span class="d-sm-inline d-none"><?php echo $datos['name_user'] ." ".$arr1[0].".";?></span>
+                                <span class="d-sm-inline d-none"><?php echo $datos['name_user'] . " " . $arr1[0] . "."; ?></span>
                             </a>
                         </li>
                     </ul>
@@ -61,18 +62,77 @@
             </div>
         </nav>
         <div class="container-fluid py-0">
-            <div class="card col-lg-12 mt-lg-4 mt-1" >
+            <div class="card col-lg-12 mt-lg-4 mt-1">
                 <div class="card-header pb-0 p-3">
                     <p style="font-size: 14px">(Seleccione a continuación lo que desea pagar y presione el boton de pagar y muestre el codigo de pago en caja)</p>
                 </div>
-                <div class="card-body px-0 pb-0">
-                    <div class="tab-content" id="v-pills-tabContent">
-                            <div class="tab-pane fade show position-relative active height-350 border-radius-lg" id="Invitados" role="tabpanel" aria-labelledby="Invitados">
-                                <div class="table-responsive p-0">
-                                    <table class="align-items-center mb-0 table table-borderless" id="user_list_table">
+                <div class="card-body px-5 pb-5">
+
+
+
+                    <div class="row">
+                        <div class="col-md-8">
+
+                            <div id="cont-checks">
+
+                                <?php echo $checks?>
+                               
+                                
+                            </div>
+                        </div>
+                    </div> 
+                    <br>
+                    <div class="row">
+                        <div class="col-md-8">
+
+                            <div id="buttons">
+
+                               <div class="row">
+                                    <div class="col-md-6">
+                                        <p>Productos agregados: <span id="productos_agregados"></span></p>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <p>Su pago en pesos es: <span id="total"></span></p>
+
+                                    </div>
+                               </div>
+                               
+                                
+                            </div>
+                        </div>
+                    </div> 
+
+                    <br>
+                    <div class="row">
+                        <div class="col-md-8">
+
+                            <div id="buttons">
+
+                               <div class="row">
+                                    <div class="col-md-6">
+                                        
+
+                                    </div>
+
+                                    <div class="col-md-6" style="display: flex; justify-content: end;">
+                                        
+                                        <button class="btn btn-primary">Proceder al pago</button>
+                                    </div>
+                               </div>
+                               
+                                
+                            </div>
+                        </div>
+                    </div> 
+                     <!-- <div class="table-responsive p-0">
+                                        <table class="align-items-center mb-0 table table-borderless" style="width:100%">
                                         <thead class="thead-light">
                                             <tr>
-                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Metodo de Pago</th>
+                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Productos</th>
+                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Costo</th>
+                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
                                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><i class="fa fa-eye"></i></th>
                                             </tr>
                                         </thead>
@@ -80,17 +140,131 @@
                                             <?php echo $tabla; ?>
                                         </tbody>
                                     </table>
-                                </div>
-                            </div>
-                        </div>
+                                </div>  -->
+
                 </div>
             </div>
         </div>
     </main>
 
-    <script type='text/javascript'>
+    <script>
+        $(document).ready(function() {
+           
 
+            $("#form_datos").on("submit", function(event) {
+                event.preventDefault();
+                var formData = new FormData(document.getElementById("form_datos"));
+
+                // for (var value of formData.values()) {
+                //     console.log(value);
+                // }
+                $.ajax({
+                    url: "/Login/saveData",
+                    type: "POST",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    beforeSend: function() {
+                        console.log("Procesando....");
+                        // alert('Se está borrando');
+
+                    },
+                    success: function(respuesta) {
+                        console.log(respuesta);
+
+                        if (respuesta == 'success') {
+                            Swal.fire("¡Se creo el usuario correctamente!", "", "success").
+                            then((value) => {
+                                window.location.reload();
+                            });
+                        } else {
+                            Swal.fire("¡Hubo un error al crear el usuario!", "", "warning").
+                            then((value) => {
+                                window.location.reload();
+                            });
+                        }
+                    },
+                    error: function(respuesta) {
+                        console.log(respuesta);
+                        // alert('Error');
+                        Swal.fire("¡Hubo un error al crear el usuario!", "", "warning").
+                        then((value) => {
+                            window.location.reload();
+                        });
+                    }
+                });
+            });
+
+            var precios = [];
+            var total = 0;
+
+            $(".checks_product").on("change",function() {
+                var id_product = $(this).val();
+                var precio = $(this).attr('data-precio');
+                var cantidad = $("#numero_articulos"+id_product).val();
+
+                if(this.checked) {
+                    // precios['id_product'] = id_product;
+                    // precios['precio'] = precio;
+                    // precios['cantidad'] = cantidad;
+
+               
+
+                   precios.push({'id_product':id_product,'precio':precio,'cantidad':cantidad});
+             
+                }else if(!this.checked){                   
+                   
+                    for(var i = 0; i < precios.length; i++) {
+
+                        if(precios[i].id_product == $(this).val()){                        
+                            console.log("remover");
+                            precios.splice(precios[i],1);
+                        }else if(precios[i].id_product === $(this).val() && precios[i].cantidad === cantidad){
+                            precios.splice(precios[i],1);
+                            // precios.push({'id_product':id_product,'precio':precio,'cantidad':cantidad});
+                        }
+                        // else if(precios[i].id_product == $(this).val() && precios[i].cantidad == cantidad){
+                        //     precios.splice(precios[i],1);
+                        //     // precios.push({'id_product':id_product,'precio':precio,'cantidad':cantidad});
+                        //     // console.log((precios[i]));
+                            
+                        // }
+                    
+                    }
+                }
+                console.log(precios);
+
+            });
+
+            $(".select_numero_articulos").on("change",function(){
+                var id_product = $(this).attr('data-id-producto');
+                var cantidad =  $(this).val();
+                var precio = $(this).attr('data-precio');
+
+                if($("#check_curso_"+id_product).is(':checked')){
+
+                    for(var i = 0; i < precios.length; i++) {                   
+
+                        if(precios[i].id_product == id_product && precios[i].cantidad != cantidad){                        
+                            console.log("remover");
+                            precios.splice(precios[i],1,{'id_product':id_product,'precio':precio,'cantidad':cantidad});
+                            // precios.push({'id_product':id_product,'precio':precio,'cantidad':cantidad});
+                        }                   
+
+                    }
+                    console.log(precios.length);
+                    
+                }    
+
+                // precios.splice(myList.indexOf('chicorita'),1,'Mew')
+
+                // console.log(num_articulos);
+                // console.log(id_product);
+            });
+        });
+
+
+
+       
     </script>
 </body>
-
-

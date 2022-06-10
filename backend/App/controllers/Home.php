@@ -31,111 +31,114 @@ class Home extends Controller{
       </title>
 html;
 
+        
+
 
         $data_user = HomeDao::getDataUser($this->__usuario);
-        $modalComprar = '';
 
-        $permisos_congreso = $data_user['congreso'] != '1' ? "style=\"display:none;\"" : "";
-        $cursos = TalleresDao::getAsignaProducto($_SESSION['user_id']);
+        $productos_pendientes_comprados = HomeDao::getProductosPendComprados($data_user['user_id']);
+        $checks = '';
 
-        $card_cursos = '';
 
-        foreach ($cursos as $key => $value) {
-            $progreso = TalleresDao::getProductProgreso($_SESSION['user_id'], $value['id_producto']);
+        foreach($productos_pendientes_comprados as $key => $value) {
+            $disabled = '';
+            $checked = '';
+            $pend_validar ='';
 
-            $max_time = $value['duracion'];
-            $duracion_sec = substr($max_time, strlen($max_time) - 2, 2);
-            $duracion_min = substr($max_time, strlen($max_time) - 5, 2);
-            $duracion_hrs = substr($max_time, 0, strpos($max_time, ':'));
-
-            $secs_totales = (intval($duracion_hrs) * 3600) + (intval($duracion_min) * 60) + intval($duracion_sec);
-
-            $porcentaje = round(($progreso['segundos'] * 100) / $secs_totales);
-
-            $card_cursos .= <<<html
-            
-
-            
-            
-            <div class="col-12 col-md-3 mt-3">
-                <div class="card card-body card-course p-0 border-radius-15" style="height:600px;">
-                    <input class="curso" hidden type="text" value="{$value['clave']}" readonly>
-                    <div class="caratula-content">
-                        <a href="/Talleres/Video/{$value['clave']}">
-                            <img class="caratula-img border-radius-15" src="/caratulas/{$value['caratula']}" style="object-fit: cover; object-position: center center; height: auto;">
-                        </a>
-                        <!--<div class="duracion"><p>{$value['duracion']}</p></div>-->
-                        <!--button class="btn btn-outline-danger"></button-->
-                        
-html;
-
-            $like = TalleresDao::getlikeProductCurso($value['id_producto'], $_SESSION['user_id']);
-            if ($like['status'] == 1) {
-                $card_cursos .= <<<html
-                    <span id="video_{$value['clave']}" data-clave="{$value['clave']}" class="fas fa-heart heart-like p-2"></span>
-html;
-            } else {
-                $card_cursos .= <<<html
-                    <span id="video_{$value['clave']}" data-clave="{$value['clave']}" class="fas fa-heart heart-not-like p-2"></span>
-html;
+            if($value['estatus_compra'] == 1){
+                $disabled = 'disabled';
+                $checked = 'checked';
+                $pend_validar ='Pagado y validado por APM';
+            }else if($value['estatus_compra'] == null){
+                $pend_validar = 'Pagado pero esta pendiente de validar';
             }
 
-            $card_cursos .= <<<html
-                        <!--<div class="row">
-                            <div class="col-11 m-auto" id="">
-                                <progress class="barra_progreso_small mt-2" max="$secs_totales" value="{$progreso['segundos']}"></progress>
-                            </div>
-                        </div>-->
+            if($value['max_compra'] <= 1){
+                $numero_productos = '<input type="number" id="numero_articulos'.$value['id_producto'].'" name="numero_articulos" value="'.$value['max_compra'].'" style="border:none;" readonly>';
+            }else{
+                $numero_productos = '<select class="form-control select_numero_articulos" id="numero_articulos'.$value['id_producto'].'" name="numero_articulos" data-id-producto="'.$value['id_producto'].'" data-precio="'.$value['precio_publico'].'">';
+                for($i = 1; $i <= $value['max_compra']; $i++){                    
+                    $numero_productos .= '<option value="'.$i.'">'.$i.'</option>';                
+                }
+                $numero_productos .= '</select>';
+            }
+
+            $checks .= <<<html
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-check">
+                            <input class="form-check-input checks_product" type="checkbox" value="{$value['id_producto']}" id="check_curso_{$value['id_producto']}" name="checks_cursos[]" {$disabled} {$checked} data-precio="{$value['precio_publico']}">
+                            <label class="form-check-label" for="check_curso_{$value['id_producto']}">
+                                {$value['nombre_producto']} <span style="font-size: 13px; text-decoration: underline; color: green;">{$pend_validar}</span>
+                            </label>
+                        </div>
                     </div>
-                    <a href="/Talleres/Video/{$value['clave']}">
-                        <h6 class="text-left mx-3 mt-2" style="color: black;">{$value['nombre']}</h3>
-                        <p class="badge badge-success" style="margin-left: 5px;">
-                          Este curso ya lo compraste.
-                        </p>
-                        
+                   
+                    <div class="col-md-2">
+                        {$value['precio_publico']} - {$value['tipo_moneda']}
+                    </div>
 
-                        <!--<p class="text-left mx-3 text-sm">{$value['fecha_curso']}
-                            {$value['descripcion']}<br>
-                            {$value['vistas']} vistas
-                            <br> <br>
-                            <b>Avance: $porcentaje %</b>
-                        </p>-->
-
-html;
-            if ($value['status'] == 2 || $porcentaje >= 80) {
-                $card_cursos .= <<<html
-                            <!--<div class="ms-3 me-3 msg-encuesta px-2 py-1">Se ha habilitado un examen para este taller</div><br><br>-->
-html;
-            }
-
-            $card_cursos .= <<<html
-                    </a>
-
-                    <div>
-                        
+                    <div class="col-md-2">
+                        {$numero_productos}
                     </div>
                 </div>
-            </div>
 
-            <script>
-                // $('#video_{$value['clave']}').on('click', function(){
-                //     let like = $('#video_{$value['clave']}').hasClass('heart-like');
-                    
-                //     if (like){
-                //         $('#video_{$value['clave']}').removeClass('heart-like').addClass('heart-not-like')
-                //     } else {
-                //         $('#video_{$value['clave']}').removeClass('heart-not-like').addClass('heart-like')
-                //     }
-                // });
-            </script>
-html;
+                <hr>
+                  
+html;            
+                $numero_productos = '';
+
         }
 
-        View::set('header',$this->_contenedor->header($extraHeader));
-        View::set('permisos_congreso',$permisos_congreso);
-        View::set('datos',$data_user);
-        View::set('card_cursos', $card_cursos);
-        View::set('modalComprar',$modalComprar);
+        $productos_no_comprados = HomeDao::getProductosNoComprados($data_user['user_id']);
+
+        foreach($productos_no_comprados as $key => $value) {
+
+            if($value['max_compra'] <= 1){
+                $numero_productos = '<input type="number" id="numero_articulos'.$value['id_producto'].'" name="numero_articulos" value="'.$value['max_compra'].'" style="border:none;" readonly>';
+            }else{
+                $numero_productos = '<select class="form-control select_numero_articulos" id="numero_articulos'.$value['id_producto'].'" name="numero_articulos" data-id-producto="'.$value['id_producto'].'"  data-precio="'.$value['precio_publico'].'">';
+                for($i = 1; $i <= $value['max_compra']; $i++){                    
+                    $numero_productos .= '<option value="'.$i.'">'.$i.'</option>';                
+                }
+                $numero_productos .= '</select>';
+            }
+            
+            $checks .= <<<html
+
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-check">
+                        <input class="form-check-input checks_product" type="checkbox" value="{$value['id_producto']}" id="check_curso_{$value['id_producto']}" name="checks_cursos[]" data-precio="{$value['precio_publico']}">
+                        <label class="form-check-label" for="check_curso_{$value['id_producto']}">
+                            {$value['nombre_producto']}
+                        </label>
+                    </div>
+                </div>
+               
+                <div class="col-md-2">
+                    {$value['precio_publico']} - {$value['tipo_moneda']}
+                </div>
+
+                <div class="col-md-2">
+                       {$numero_productos}
+                </div>
+
+            </div>
+
+            <hr>
+            
+               
+html;            
+            $numero_productos = '';
+
+        }
+
+
+  
+        View::set('header',$this->_contenedor->header($extraHeader));   
+        View::set('datos',$data_user);    
+        View::set('checks',$checks);    
         View::render("principal_all");
     }
 
