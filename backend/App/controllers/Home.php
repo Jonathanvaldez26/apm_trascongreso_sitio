@@ -42,7 +42,7 @@ html;
         $total_pago = 0;
 
         if($productos_pendientes_comprados[0]['clave'] != ""){
-            $src_qr = 'qrs/'.$productos_pendientes_comprados[0]['clave'].'.png';           
+            $src_qr = '/qrs/'.$productos_pendientes_comprados[0]['clave'].'.png';           
             $btn_block = 'style = "display:none"';
         }else{
             $src_qr = '';
