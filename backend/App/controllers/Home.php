@@ -40,10 +40,13 @@ html;
         $checks = '';
         $total_productos = 0;
         $total_pago = 0;
+        $check_disabled = '';
+
 
         if($productos_pendientes_comprados[0]['clave'] != ""){
             $src_qr = '/qrs/'.$productos_pendientes_comprados[0]['clave'].'.png';           
             $btn_block = 'style = "display:none"';
+            $check_disabled = 'disabled';
         }else{
             $src_qr = '';
             $btn_block = '';
@@ -63,6 +66,16 @@ html;
             $total_pago += $count_producto['numero_productos'] * $value['precio_publico'];
 
 
+            
+            if($value['es_congreso'] == 1){
+                $precio = $value['amout_due'];
+            }else if($value['es_servicio'] == 1){
+                $precio = $value['precio_publico'];
+            }else if($value['es_curso'] == 1){
+                $precio = $value['precio_publico'];
+            }
+
+
             if($value['estatus_compra'] == 1){
                 $disabled = 'disabled';
                 $checked = 'checked';
@@ -75,7 +88,7 @@ html;
             if($value['max_compra'] <= 1){
                 $numero_productos = '<input type="number" id="numero_articulos'.$value['id_producto'].'" name="numero_articulos" value="'.$value['max_compra'].'" style="border:none;" readonly>';
             }else{
-                $numero_productos = '<select class="form-control select_numero_articulos" id="numero_articulos'.$value['id_producto'].'" name="numero_articulos" data-id-producto="'.$value['id_producto'].'" data-precio="'.$value['precio_publico'].'" '.$disabled.'>';
+                $numero_productos = '<select class="form-control select_numero_articulos" id="numero_articulos'.$value['id_producto'].'" name="numero_articulos" data-id-producto="'.$value['id_producto'].'" data-precio="'.$precio.'" '.$disabled.'>';
                 for($i = 1; $i <= $value['max_compra']; $i++){                    
                     $numero_productos .= '<option value="'.$i.'">'.$i.'</option>';                
                 }
@@ -86,7 +99,7 @@ html;
                 <div class="row">
                     <div class="col-md-8">
                         <div class="form-check">
-                            <input class="form-check-input checks_product" type="checkbox" value="{$value['id_producto']}" id="check_curso_{$value['id_producto']}" name="checks_cursos[]" {$disabled} {$checked} data-precio="{$value['precio_publico']}">
+                            <input class="form-check-input checks_product" type="checkbox" value="{$value['id_producto']}" id="check_curso_{$value['id_producto']}" name="checks_cursos[]" {$disabled} {$checked} data-precio="{$precio}">
                             <label class="form-check-label" for="check_curso_{$value['id_producto']}">
                                 {$value['nombre_producto']} <span style="font-size: 13px; text-decoration: underline; color: green;">{$pend_validar} - No. productos {$count_producto['numero_productos']}</span>
                             </label>
@@ -94,7 +107,7 @@ html;
                     </div>
                    
                     <div class="col-md-2">
-                        {$value['precio_publico']} - {$value['tipo_moneda']}
+                        {$precio} - {$value['tipo_moneda']}
                     </div>
 
                     <div class="col-md-2">
@@ -113,10 +126,24 @@ html;
 
         foreach($productos_no_comprados as $key => $value) {
 
+            
+            if($data_user['amout_due'] != null || $data_user['amout_due'] != ''){
+
+                if($value['es_congreso'] == 1){
+                    $precio = $data_user['amout_due'];
+                }else if($value['es_servicio'] == 1){
+                    $precio = $value['precio_publico'];
+                }else if($value['es_curso'] == 1){
+                    $precio = $value['precio_publico'];
+                }
+            }else{
+                $precio = $value['precio_publico'];
+            }
+
             if($value['max_compra'] <= 1){
                 $numero_productos = '<input type="number" id="numero_articulos'.$value['id_producto'].'" name="numero_articulos" value="'.$value['max_compra'].'" style="border:none;" readonly>';
             }else{
-                $numero_productos = '<select class="form-control select_numero_articulos" id="numero_articulos'.$value['id_producto'].'" name="numero_articulos" data-id-producto="'.$value['id_producto'].'"  data-precio="'.$value['precio_publico'].'">';
+                $numero_productos = '<select class="form-control select_numero_articulos" id="numero_articulos'.$value['id_producto'].'" name="numero_articulos" data-id-producto="'.$value['id_producto'].'"  data-precio="'.$precio.'">';
                 for($i = 1; $i <= $value['max_compra']; $i++){                    
                     $numero_productos .= '<option value="'.$i.'">'.$i.'</option>';                
                 }
@@ -128,7 +155,7 @@ html;
             <div class="row">
                 <div class="col-md-8">
                     <div class="form-check">
-                        <input class="form-check-input checks_product" type="checkbox" value="{$value['id_producto']}" id="check_curso_{$value['id_producto']}" name="checks_cursos[]" data-precio="{$value['precio_publico']}">
+                        <input class="form-check-input checks_product" type="checkbox" value="{$value['id_producto']}" id="check_curso_{$value['id_producto']}" name="checks_cursos[]" data-precio="{$precio}" {$check_disabled}>
                         <label class="form-check-label" for="check_curso_{$value['id_producto']}">
                             {$value['nombre_producto']}
                         </label>
@@ -136,7 +163,7 @@ html;
                 </div>
                
                 <div class="col-md-2">
-                    {$value['precio_publico']} - {$value['tipo_moneda']}
+                    {$precio} - {$value['tipo_moneda']}
                 </div>
 
                 <div class="col-md-2">

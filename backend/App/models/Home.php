@@ -166,7 +166,7 @@ sql;
   public static function getProductosPendComprados($id){
     $mysqli = Database::getInstance();
     $query=<<<sql
-    SELECT pp.id_producto,pp.clave,pp.status,ua.name_user,aspro.status as estatus_compra,pro.nombre as nombre_producto, pro.precio_publico, pro.tipo_moneda, pro.max_compra
+    SELECT pp.id_producto,pp.clave,pp.status,ua.name_user,ua.amout_due,aspro.status as estatus_compra,pro.nombre as nombre_producto, pro.precio_publico, pro.tipo_moneda, pro.max_compra, pro.es_congreso, pro.es_servicio, pro.es_curso
     FROM pendiente_pago pp
     INNER JOIN utilerias_administradores ua ON(ua.user_id = pp.user_id)
     INNER JOIN productos pro ON (pp.id_producto = pro.id_producto)
@@ -179,7 +179,7 @@ sql;
   public static function getProductosNoComprados($id){
     $mysqli = Database::getInstance();
     $query=<<<sql
-    SELECT id_producto, nombre as nombre_producto, precio_publico, tipo_moneda, max_compra FROM productos 
+    SELECT id_producto, nombre as nombre_producto, precio_publico, tipo_moneda, max_compra, es_congreso, es_servicio, es_curso FROM productos 
     WHERE id_producto NOT IN (SELECT id_producto FROM pendiente_pago WHERE user_id = $id);
 sql;
     return $mysqli->queryAll($query);
