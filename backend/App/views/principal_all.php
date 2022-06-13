@@ -80,6 +80,13 @@
                                 
                             </div>
                         </div>
+
+                        <div class="col-md-4" style="display: flex; align-items: center; justify-content: center;">
+                            <div id="cont-image">
+                                <img src="<?=$src_qr?>" id="img_qr" style="width: 400px;" alt="">
+                            </div>
+                            
+                        </div>
                     </div> 
                     <br>
                     <div class="row">
@@ -89,12 +96,12 @@
 
                                <div class="row">
                                     <div class="col-md-6">
-                                        <p>Productos agregados: <span id="productos_agregados"></span></p>
+                                        <p>Productos agregados: <span id="productos_agregados"><?=$total_productos?></span></p>
 
                                     </div>
 
                                     <div class="col-md-6">
-                                        <p>Su pago en pesos es: <span id="total"></span></p>
+                                        <p>Su pago en pesos es: <span id="total"><?=$total_pago?></span></p>
 
                                     </div>
                                </div>
@@ -102,7 +109,39 @@
                                 
                             </div>
                         </div>
+                       
                     </div> 
+
+                      
+                    <br>
+                    <div class="row">
+                        <div class="col-md-8">
+
+                            <div id="buttons">
+
+                               <!-- <div class="row">
+                                    <div class="col-md-6">
+                                        
+
+                                    </div>
+
+                                    <div class="col-md-6" style="display: flex; justify-content: end;">
+                                        <div class="form-group">
+                                            <label>Elige tu metodo de pago *</label>
+                                            <select class="multisteps-form__select form-control all_input_second_select metodo_pago" name="metodo_pago" id="metodo_pago" required>
+                                                <option value="" disabled selected>Selecciona una Opción</option>
+                                                <option value="Paypal">Paypal</option>
+                                                <option value="Efectivo">Efectivo / Transferencia electrónica</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                               </div> -->
+                               
+                                
+                            </div>
+                        </div>
+                    </div> 
+
 
                     <br>
                     <div class="row">
@@ -118,14 +157,17 @@
 
                                     <div class="col-md-6" style="display: flex; justify-content: end;">
                                         
-                                        <button class="btn btn-primary">Proceder al pago</button>
+                                        <button class="btn btn-primary" id="btn_pago" <?=$btn_block?>>Proceder al pago</button>
                                     </div>
                                </div>
                                
                                 
                             </div>
                         </div>
-                    </div> 
+                    </div>
+                    
+                  
+
                      <!-- <div class="table-responsive p-0">
                                         <table class="align-items-center mb-0 table table-borderless" style="width:100%">
                                         <thead class="thead-light">
@@ -146,7 +188,7 @@
             </div>
         </div>
     </main>
-
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script>
         $(document).ready(function() {
            
@@ -204,67 +246,139 @@
                 var cantidad = $("#numero_articulos"+id_product).val();
 
                 if(this.checked) {
-                    // precios['id_product'] = id_product;
-                    // precios['precio'] = precio;
-                    // precios['cantidad'] = cantidad;
-
-               
-
+                   
                    precios.push({'id_product':id_product,'precio':precio,'cantidad':cantidad});
+                   sumarPrecios(precios);
              
                 }else if(!this.checked){                   
                    
                     for(var i = 0; i < precios.length; i++) {
 
-                        if(precios[i].id_product == $(this).val()){                        
+                        if(precios[i].id_product === id_product){                        
                             console.log("remover");
-                            precios.splice(precios[i],1);
-                        }else if(precios[i].id_product === $(this).val() && precios[i].cantidad === cantidad){
-                            precios.splice(precios[i],1);
-                            // precios.push({'id_product':id_product,'precio':precio,'cantidad':cantidad});
-                        }
-                        // else if(precios[i].id_product == $(this).val() && precios[i].cantidad == cantidad){
-                        //     precios.splice(precios[i],1);
-                        //     // precios.push({'id_product':id_product,'precio':precio,'cantidad':cantidad});
-                        //     // console.log((precios[i]));
+                            precios.splice(i,1);
+                        }else if(precios[i].id_product === id_product && precios[i].cantidad === cantidad){
+                            precios.splice(i,1);
                             
-                        // }
+                        }
+                     
                     
                     }
                 }
-                console.log(precios);
+                // console.log(precios);
+                sumarPrecios(precios);
 
             });
 
             $(".select_numero_articulos").on("change",function(){
-                var id_product = $(this).attr('data-id-producto');
+                var id_producto = $(this).attr('data-id-producto');
                 var cantidad =  $(this).val();
                 var precio = $(this).attr('data-precio');
 
-                if($("#check_curso_"+id_product).is(':checked')){
+                if($("#check_curso_"+id_producto).is(':checked')){
 
                     for(var i = 0; i < precios.length; i++) {                   
 
-                        if(precios[i].id_product == id_product && precios[i].cantidad != cantidad){                        
+                        if(precios[i].id_product === id_producto && precios[i].cantidad != cantidad){                        
                             console.log("remover");
-                            precios.splice(precios[i],1,{'id_product':id_product,'precio':precio,'cantidad':cantidad});
+                            precios.splice(i,1,{'id_product':id_producto,'precio':precio,'cantidad':cantidad});
                             // precios.push({'id_product':id_product,'precio':precio,'cantidad':cantidad});
                         }                   
 
                     }
                     console.log(precios.length);
+                    sumarPrecios(precios);
                     
                 }    
 
-                // precios.splice(myList.indexOf('chicorita'),1,'Mew')
-
-                // console.log(num_articulos);
-                // console.log(id_product);
             });
+
+            function sumarPrecios(precios){
+                console.log(precios);
+                var sumaPrecios = 0;
+                var sumaArticulos = 0;
+
+                precios.forEach(function(precio, index) {
+
+                    console.log("precio " + index + " | id_product: " + precio.id_product + " precio: " + parseInt(precio.precio) + " cantidad: " + parseInt(precio.cantidad))
+
+                    sumaPrecios += parseInt(precio.precio * precio.cantidad); 
+                    sumaArticulos += parseInt(precio.cantidad);                 
+
+                });
+
+                console.log("Suma precios " + sumaPrecios);
+
+                $("#total").html(sumaPrecios);
+
+                console.log("Suma Articulos " + sumaArticulos);
+
+                $("#productos_agregados").html(sumaArticulos);
+
+            }
+
+            $("#btn_pago").on("click", function(event){
+                event.preventDefault();
+                // var metodo_pago = $("#metodo_pago").val();
+
+                if(precios.length <= 0){
+
+                    Swal.fire("¡Debes seleccionar al menos un producto!", "", "warning")
+
+                }else{                
+
+                    Swal.fire({
+                        title: '¿Quieres comprar estos productos?',
+                        text: "",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        cancelButtonText: 'Cancelar',
+                        confirmButtonText: 'Comprar'
+                        }).then((result) => {
+                        if (result.isConfirmed) {                        
+                                                
+                            $.ajax({
+                                url: "/Home/generaterQr",
+                                type: "POST",
+                                data: {'array': JSON.stringify(precios)},
+                                cache: false,
+                                dataType: "json",
+                                // contentType: false,
+                                // processData: false,
+                                beforeSend: function() {
+                                    console.log("Procesando....");
+
+                                },
+                                success: function(respuesta) {
+
+                                    console.log(respuesta);
+
+                                    if(respuesta.status == 'success'){
+                                        $("#img_qr").attr("src",respuesta.src);
+                                        Swal.fire("¡Ya puedes pasar a pagar!", "", "success").
+                                        then((value) => {
+                                            window.location.reload();
+                                        });
+                                    }
+                                
+                                },
+                                error: function(respuesta) {
+                                    console.log(respuesta);
+                                }
+
+                            });
+                        }
+                    })
+                }
+            });
+
+            
         });
-
-
 
        
     </script>
+
+
 </body>

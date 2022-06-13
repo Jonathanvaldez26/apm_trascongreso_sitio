@@ -458,16 +458,17 @@ sql;
   public static function inserPendientePago($data){ 
     $mysqli = Database::getInstance(1);
     $query=<<<sql
-    INSERT INTO pendiente_pago (id_producto, user_id, reference, 	fecha, monto, tipo_pago, status) VALUES (:id_producto, :user_id, :reference, :fecha, :monto, :tipo_pago, :status);
+    INSERT INTO pendiente_pago (id_producto, user_id, reference, clave	,fecha, monto, status) VALUES (:id_producto, :user_id, :reference, :clave, :fecha, :monto, :status);
 sql;
 
   $parametros = array(
     ':id_producto'=>$data->_id_producto,
     ':user_id'=>$data->_user_id,
     ':reference'=>$data->_reference,
+    ':clave'=>$data->_clave,
     ':fecha'=>$data->_fecha,
     ':monto'=>$data->_monto,
-    ':tipo_pago'=>$data->_tipo_pago,
+    // ':tipo_pago'=>$data->_tipo_pago,
     ':status'=>$data->_status
         
   );

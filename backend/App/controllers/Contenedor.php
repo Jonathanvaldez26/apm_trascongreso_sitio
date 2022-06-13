@@ -7,6 +7,7 @@ use \Core\Controller;
 
 require_once dirname(__DIR__).'/../public/librerias/mpdf/mpdf.php';
 require_once dirname(__DIR__).'/../public/librerias/phpexcel/Classes/PHPExcel.php';
+require_once dirname(__DIR__).'/../public/librerias/phpqrcode/qrlib.php';
 class Contenedor extends Controller{
 
 

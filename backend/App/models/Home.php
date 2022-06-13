@@ -171,7 +171,7 @@ sql;
     INNER JOIN utilerias_administradores ua ON(ua.user_id = pp.user_id)
     INNER JOIN productos pro ON (pp.id_producto = pro.id_producto)
     LEFT JOIN asigna_producto aspro ON(aspro.id_producto = pp.id_producto)
-    WHERE ua.user_id = $id;
+    WHERE ua.user_id = $id GROUP BY pp.id_producto;
 sql;
     return $mysqli->queryAll($query);
   }
@@ -183,6 +183,43 @@ sql;
     WHERE id_producto NOT IN (SELECT id_producto FROM pendiente_pago WHERE user_id = $id);
 sql;
     return $mysqli->queryAll($query);
+  }
+
+  public static function getCountProductos($user_id,$id_producto){
+    $mysqli = Database::getInstance();
+    $query=<<<sql
+    SELECT count(*) as numero_productos FROM pendiente_pago WHERE user_id = $user_id and id_producto = $id_producto;
+sql;
+    return $mysqli->queryAll($query);
+  }
+
+    /* Pendiente de Pago */
+    public static function inserPendientePago($data){ 
+      $mysqli = Database::getInstance(1);
+      $query=<<<sql
+      INSERT INTO pendiente_pago (id_producto, user_id, reference, clave,fecha, monto, tipo_pago, status) VALUES (:id_producto, :user_id, :reference,:clave,:fecha, :monto, :tipo_pago, :status);
+  sql;
+  
+    $parametros = array(
+      ':id_producto'=>$data->_id_producto,
+      ':user_id'=>$data->_user_id,
+      ':reference'=>$data->_reference,
+      ':clave'=>$data->_clave,
+      ':fecha'=>$data->_fecha,
+      ':monto'=>$data->_monto,
+      ':tipo_pago'=>$data->_tipo_pago,
+      ':status'=>$data->_status
+          
+    );
+    $id = $mysqli->insert($query,$parametros);
+    // $accion = new \stdClass();
+    // $accion->_sql= $query;
+    // $accion->_parametros = $parametros;
+    // $accion->_id = $id;
+  
+    //UtileriasLog::addAccion($accion);
+    return $id;
+      // return "insert"+$data;
   }
 
   
