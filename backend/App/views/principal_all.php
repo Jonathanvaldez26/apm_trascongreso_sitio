@@ -93,7 +93,7 @@
                         <div class="col-md-8">
 
                             <div id="buttons">
-
+                                <input type="hidden" id="tipo_cambio" value="<?=$tipo_cambio?>">
                                <div class="row">
                                     <div class="col-md-6">
                                         <p>Productos agregados: <span id="productos_agregados"><?=$total_productos?></span></p>
@@ -101,7 +101,9 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <p>Su pago en pesos es: <span id="total"><?=$total_pago?></span></p>
+                                        <p>Su pago en dolares es: $ <span id="total"><?=$total_pago?></span> USD</p>
+
+                                        <p>Su pago en pesos mexicanos es: $ <span id="total_mx"><?=$total_pago_mx?></span> </p>
 
                                     </div>
                                </div>
@@ -238,17 +240,23 @@
             });
 
             var precios = [];
+            var productos = [];
             var total = 0;
 
             $(".checks_product").on("change",function() {
                 var id_product = $(this).val();
                 var precio = $(this).attr('data-precio');
                 var cantidad = $("#numero_articulos"+id_product).val();
+                var nombre_producto = $(this).attr('data-nombre-producto');
+
+                
 
                 if(this.checked) {
                    
                    precios.push({'id_product':id_product,'precio':precio,'cantidad':cantidad});
                    sumarPrecios(precios);
+
+                   productos.push({'id_product':id_product,'precio':precio,'cantidad':cantidad,'nombre_producto':nombre_producto});
              
                 }else if(!this.checked){                   
                    
@@ -257,15 +265,19 @@
                         if(precios[i].id_product === id_product){                        
                             console.log("remover");
                             precios.splice(i,1);
+
+                            productos.splice(i,1);
                         }else if(precios[i].id_product === id_product && precios[i].cantidad === cantidad){
                             precios.splice(i,1);
+
+                            productos.splice(i,1);
                             
                         }
                      
                     
                     }
                 }
-                // console.log(precios);
+                console.log(productos);
                 sumarPrecios(precios);
 
             });
@@ -274,6 +286,7 @@
                 var id_producto = $(this).attr('data-id-producto');
                 var cantidad =  $(this).val();
                 var precio = $(this).attr('data-precio');
+                var nombre_producto = $(this).attr('data-nombre-producto');
 
                 if($("#check_curso_"+id_producto).is(':checked')){
 
@@ -282,11 +295,17 @@
                         if(precios[i].id_product === id_producto && precios[i].cantidad != cantidad){                        
                             console.log("remover");
                             precios.splice(i,1,{'id_product':id_producto,'precio':precio,'cantidad':cantidad});
+
+                            productos.splice(i,1,{'id_product':id_producto,'precio':precio,'cantidad':cantidad,'nombre_producto':nombre_producto});
+
                             // precios.push({'id_product':id_product,'precio':precio,'cantidad':cantidad});
                         }                   
 
                     }
                     console.log(precios.length);
+
+                    console.log(productos);
+
                     sumarPrecios(precios);
                     
                 }    
@@ -311,6 +330,8 @@
 
                 $("#total").html(sumaPrecios);
 
+                $("#total_mx").html(($("#tipo_cambio").val() * sumaPrecios).toFixed(2));
+
                 console.log("Suma Articulos " + sumaArticulos);
 
                 $("#productos_agregados").html(sumaArticulos);
@@ -325,17 +346,37 @@
 
                     Swal.fire("¡Debes seleccionar al menos un producto!", "", "warning")
 
-                }else{                
+                }else{    
+                    var plantilla_productos = '';
+                     
+                    plantilla_productos += `<ul>`;
+
+                    
+                    $.each(productos, function(key, value) {
+                        console.log("funcioina");
+                        console.log(value);
+                        plantilla_productos += `<li style="text-align: justify; font-size:14px;">
+                                                    ${value.nombre_producto} Cant. ${value.cantidad}
+                                                </li>`;
+                    });
+
+                    plantilla_productos += `</ul>`;
+                    plantilla_productos += `<p><strong>Total en dolares: $ ${$("#total").text()} USD </strong></p>`;
+                    plantilla_productos += `<p><strong>Total en pesos mexicanos: $ ${$("#total_mx").text()}</strong></p>`;
+
+                    plantilla_productos += `<p>Confirme su selección y de clic en procesar compra y espere su turno en línea de cajas.</p>`;
+
 
                     Swal.fire({
-                        title: '¿Quieres comprar estos productos?',
-                        text: "",
+                        title: 'Usted selecciono los siguientes productos',
+                        text: '',
+                        html: plantilla_productos,
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
                         cancelButtonText: 'Cancelar',
-                        confirmButtonText: 'Comprar'
+                        confirmButtonText: 'Procesar Compra'
                         }).then((result) => {
                         if (result.isConfirmed) {                        
                                                 
@@ -357,7 +398,7 @@
 
                                     if(respuesta.status == 'success'){
                                         $("#img_qr").attr("src",respuesta.src);
-                                        Swal.fire("¡Ya puedes pasar a pagar!", "", "success").
+                                        Swal.fire("¡Mantenga a la mano su codigo QR para pagar en linea de cajas!", "", "success").
                                         then((value) => {
                                             window.location.reload();
                                         });

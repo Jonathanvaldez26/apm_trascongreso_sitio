@@ -88,7 +88,7 @@ html;
             if($value['max_compra'] <= 1){
                 $numero_productos = '<input type="number" id="numero_articulos'.$value['id_producto'].'" name="numero_articulos" value="'.$value['max_compra'].'" style="border:none;" readonly>';
             }else{
-                $numero_productos = '<select class="form-control select_numero_articulos" id="numero_articulos'.$value['id_producto'].'" name="numero_articulos" data-id-producto="'.$value['id_producto'].'" data-precio="'.$precio.'" '.$disabled.'>';
+                $numero_productos = '<select class="form-control select_numero_articulos" id="numero_articulos'.$value['id_producto'].'" name="numero_articulos" data-id-producto="'.$value['id_producto'].'" data-precio="'.$precio.'" data-nombre-producto="'.$value['nombre_producto'].'" '.$disabled.'>';
                 for($i = 1; $i <= $value['max_compra']; $i++){                    
                     $numero_productos .= '<option value="'.$i.'">'.$i.'</option>';                
                 }
@@ -99,7 +99,7 @@ html;
                 <div class="row">
                     <div class="col-md-8">
                         <div class="form-check">
-                            <input class="form-check-input checks_product" type="checkbox" value="{$value['id_producto']}" id="check_curso_{$value['id_producto']}" name="checks_cursos[]" {$disabled} {$checked} data-precio="{$precio}">
+                            <input class="form-check-input checks_product" type="checkbox" value="{$value['id_producto']}" id="check_curso_{$value['id_producto']}" name="checks_cursos[]" {$disabled} {$checked} data-precio="{$precio}" data-nombre-producto="{$value['nombre_producto']}">
                             <label class="form-check-label" for="check_curso_{$value['id_producto']}">
                                 {$value['nombre_producto']} <span style="font-size: 13px; text-decoration: underline; color: green;">{$pend_validar} - No. productos {$count_producto['numero_productos']}</span>
                             </label>
@@ -143,7 +143,7 @@ html;
             if($value['max_compra'] <= 1){
                 $numero_productos = '<input type="number" id="numero_articulos'.$value['id_producto'].'" name="numero_articulos" value="'.$value['max_compra'].'" style="border:none;" readonly>';
             }else{
-                $numero_productos = '<select class="form-control select_numero_articulos" id="numero_articulos'.$value['id_producto'].'" name="numero_articulos" data-id-producto="'.$value['id_producto'].'"  data-precio="'.$precio.'">';
+                $numero_productos = '<select class="form-control select_numero_articulos" id="numero_articulos'.$value['id_producto'].'" name="numero_articulos" data-id-producto="'.$value['id_producto'].'"  data-precio="'.$precio.'" data-nombre-producto="'.$value['nombre_producto'].'">';
                 for($i = 1; $i <= $value['max_compra']; $i++){                    
                     $numero_productos .= '<option value="'.$i.'">'.$i.'</option>';                
                 }
@@ -155,7 +155,7 @@ html;
             <div class="row">
                 <div class="col-md-8">
                     <div class="form-check">
-                        <input class="form-check-input checks_product" type="checkbox" value="{$value['id_producto']}" id="check_curso_{$value['id_producto']}" name="checks_cursos[]" data-precio="{$precio}" {$check_disabled}>
+                        <input class="form-check-input checks_product" type="checkbox" value="{$value['id_producto']}" id="check_curso_{$value['id_producto']}" name="checks_cursos[]" data-precio="{$precio}" data-nombre-producto="{$value['nombre_producto']}" {$check_disabled}>
                         <label class="form-check-label" for="check_curso_{$value['id_producto']}">
                             {$value['nombre_producto']}
                         </label>
@@ -180,6 +180,14 @@ html;
 
         }
 
+        $tipo_cambio = HomeDao::getTipoCambio();
+
+        $total_mx = intval($total_pago) * floatval($tipo_cambio['tipo_cambio']);
+
+
+        // var_dump($tipo_cambio['tipo_cambio']);
+        // exit;
+        //las dos lineas de arriba son para sacar el tipo de cambio por posicion
 
   
         View::set('header',$this->_contenedor->header($extraHeader));   
@@ -189,6 +197,8 @@ html;
         View::set('btn_block',$btn_block); 
         View::set('total_productos',$total_productos); 
         View::set('total_pago',$total_pago); 
+        View::set('total_pago_mx',$total_mx); 
+        View::set('tipo_cambio',$tipo_cambio['tipo_cambio']);
         View::render("principal_all");
     }
 
