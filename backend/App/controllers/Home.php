@@ -1,6 +1,7 @@
 <?php
 namespace App\controllers;
 defined("APPPATH") OR die("Access denied");
+require_once dirname(__DIR__) . '/../public/librerias/fpdf/fpdf.php';
 
 use \Core\View;
 use \Core\Controller;
@@ -83,6 +84,7 @@ html;
             }else if($value['estatus_compra'] == null){
                 $pend_validar = 'Pendiente de validar';
                 $disabled = 'disabled';
+                $checked = 'checked';
             }
 
             if($value['max_compra'] <= 1){
@@ -189,6 +191,13 @@ html;
         // exit;
         //las dos lineas de arriba son para sacar el tipo de cambio por posicion
 
+        if($src_qr != ''){
+            // $btn_imp = '<a class="btn btn-primary" onclick="javascript:window.print();">Imprimir</a>';
+            $btn_imp = '<a class="btn btn-primary" href="/Home/print/'.$productos_pendientes_comprados[0]['clave'].'" target="blank_">Imprimir</a>';
+        }else{
+            $btn_imp = '';
+        }
+
   
         View::set('header',$this->_contenedor->header($extraHeader));   
         View::set('datos',$data_user);    
@@ -198,6 +207,7 @@ html;
         View::set('total_productos',$total_productos); 
         View::set('total_pago',$total_pago); 
         View::set('total_pago_mx',$total_mx); 
+        View::set('btn_imp',$btn_imp); 
         View::set('tipo_cambio',$tipo_cambio['tipo_cambio']);
         View::render("principal_all");
     }
@@ -337,6 +347,94 @@ html;
        
        echo json_encode($res);
        
+    }
+
+    public function print($clave)
+    {
+        date_default_timezone_set('America/Mexico_City');
+
+        // $this->generaterQr($clave_ticket);
+
+        $datos_user = HomeDao::getDataUser($this->getUsuario());
+        $user_id = $datos_user['user_id'];
+        
+
+
+        $productos = TalleresDao::getProductosPendientesPagoTicketSitio($user_id);
+
+        
+        $reference = $productos[0]['reference'];
+        $fecha = $productos[0]['fecha'];
+        
+        $nombre_completo = $datos_user['name_user'] . " " . $datos_user['middle_name'] . " " . $datos_user['surname'] . " " . $datos_user['second_surname'];
+
+
+        $pdf = new \FPDF($orientation = 'P', $unit = 'mm', $format = 'A4');
+        $pdf->AddPage();
+        $pdf->SetFont('Arial', 'B', 8);    //Letra Arial, negrita (Bold), tam. 20
+        $pdf->setY(1);
+        $pdf->SetFont('Arial', 'B', 16);
+        $pdf->Image('constancias/plantillas/ticket_esp.jpeg', 0, 0, 210, 300);
+        
+        // $pdf->SetFont('Arial', 'B', 25);
+        // $pdf->Multicell(133, 80, $clave_ticket, 0, 'C');
+
+        //$pdf->Image('1.png', 1, 0, 190, 190);
+        $pdf->SetFont('Arial', 'B', 5);    //Letra Arial, negrita (Bold), tam. 20
+        //$nombre = utf8_decode("Jonathan Valdez Martinez");
+        //$num_linea =utf8_decode("Línea: 39");
+        //$num_linea2 =utf8_decode("Línea: 39");
+
+        $espace = 140;
+        $total = array();
+        foreach($productos as $key => $value){            
+            
+            
+            if($value['es_congreso'] == 1){
+                $precio = $value['amout_due'];
+            }else if($value['es_servicio'] == 1){
+                $precio = $value['precio_publico'];
+            }else if($value['es_curso'] == 1){
+                $precio = $value['precio_publico'];
+            }
+
+            array_push($total,$precio);
+
+            //Nombre Curso
+            $pdf->SetXY(22, $espace);
+            $pdf->SetFont('Arial', 'B', 8);  
+            $pdf->SetTextColor(0, 0, 0);
+            $pdf->Multicell(100, 4, utf8_decode($value['nombre']), 0, 'C');
+
+            //Costo
+            $pdf->SetXY(125, $espace);
+            $pdf->SetFont('Arial', 'B', 8);  
+            $pdf->SetTextColor(0, 0, 0);
+            $pdf->Multicell(100, 4, '$ '.$precio.' ' .$value['tipo_moneda'], 0, 'C');
+
+            $espace = $espace + 5;
+        }
+
+        //folio
+        $pdf->SetXY(92, 60.5);
+        $pdf->SetFont('Arial', 'B', 13);  
+        $pdf->SetTextColor(0, 0, 0);
+        $pdf->Multicell(100, 10, $reference, 0, 'C');
+
+        //fecha
+        $pdf->SetXY(90, 70.5);
+        $pdf->SetFont('Arial', 'B', 13);  
+        $pdf->SetTextColor(0, 0, 0);
+        $pdf->Multicell(100, 10, $fecha, 0, 'C');
+
+        //imagen Qr
+        $pdf->Image('qrs/'.$clave.'.png' , 160 ,210, 35 , 38,'PNG');
+
+
+        $pdf->Output();
+        // $pdf->Output('F','constancias/'.$clave.$id_curso.'.pdf');
+
+        // $pdf->Output('F', 'C:/pases_abordar/'. $clave.'.pdf');
     }
 
 }

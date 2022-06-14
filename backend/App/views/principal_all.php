@@ -120,6 +120,11 @@
                         <div class="col-md-8">
 
                             <div id="buttons">
+                                <div class="row">
+                                        <div class="col-md-6">
+                                            <?=$btn_imp?>
+                                        </div>
+                                </div>
 
                                <!-- <div class="row">
                                     <div class="col-md-6">
@@ -192,6 +197,7 @@
     </main>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script>
+        
         $(document).ready(function() {
            
 
