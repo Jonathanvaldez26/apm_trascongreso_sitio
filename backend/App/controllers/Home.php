@@ -42,12 +42,13 @@ html;
         $total_productos = 0;
         $total_pago = 0;
         $check_disabled = '';
+        $array_precios = [];
 
 
         if($productos_pendientes_comprados[0]['clave'] != ""){
             $src_qr = '/qrs/'.$productos_pendientes_comprados[0]['clave'].'.png';           
-            $btn_block = 'style = "display:none"';
-            $check_disabled = 'disabled';
+            // $btn_block = 'style = "display:none"';
+            // $check_disabled = 'disabled';
         }else{
             $src_qr = '';
             $btn_block = '';
@@ -60,14 +61,7 @@ html;
             $disabled = '';
             $checked = '';
             $pend_validar ='';
-            
-            $count_producto = HomeDao::getCountProductos($_SESSION['user_id'],$value['id_producto'])[0];
 
-            $total_productos += $count_producto['numero_productos'];
-            $total_pago += $count_producto['numero_productos'] * $value['precio_publico'];
-
-
-            
             if($value['es_congreso'] == 1){
                 $precio = $value['amout_due'];
             }else if($value['es_servicio'] == 1){
@@ -75,7 +69,11 @@ html;
             }else if($value['es_curso'] == 1){
                 $precio = $value['precio_publico'];
             }
+            
+            $count_producto = HomeDao::getCountProductos($_SESSION['user_id'],$value['id_producto'])[0];
 
+            $total_productos += $count_producto['numero_productos'];
+            $total_pago += $count_producto['numero_productos'] * $precio;
 
             if($value['estatus_compra'] == 1){
                 $disabled = 'disabled';
@@ -85,6 +83,7 @@ html;
                 $pend_validar = 'Pendiente de validar';
                 $disabled = 'disabled';
                 $checked = 'checked';
+                array_push($array_precios,['id_product'=>$value['id_producto'],'precio'=>$precio,'cantidad'=>$count_producto['numero_productos']]);
             }
 
             if($value['max_compra'] <= 1){
@@ -186,6 +185,11 @@ html;
 
         $total_mx = intval($total_pago) * floatval($tipo_cambio['tipo_cambio']);
 
+        // var_dump($array_precios);
+        // exit;
+
+        echo $total_pago;
+
 
         // var_dump($tipo_cambio['tipo_cambio']);
         // exit;
@@ -194,13 +198,18 @@ html;
         if($src_qr != ''){
             // $btn_imp = '<a class="btn btn-primary" onclick="javascript:window.print();">Imprimir</a>';
             $btn_imp = '<a class="btn btn-primary" href="/Home/print/'.$productos_pendientes_comprados[0]['clave'].'" target="blank_">Imprimir</a>';
+            $ocultar = '';
         }else{
             $btn_imp = '';
+            $ocultar = 'display:none;';
         }
+
+        $clave = $productos_pendientes_comprados[0]['clave'];
 
   
         View::set('header',$this->_contenedor->header($extraHeader));   
-        View::set('datos',$data_user);    
+        View::set('datos',$data_user);
+        View::set('clave',$clave);    
         View::set('checks',$checks);
         View::set('src_qr',$src_qr); 
         View::set('btn_block',$btn_block); 
@@ -208,7 +217,9 @@ html;
         View::set('total_pago',$total_pago); 
         View::set('total_pago_mx',$total_mx); 
         View::set('btn_imp',$btn_imp); 
+        View::set('ocultar',$ocultar);
         View::set('tipo_cambio',$tipo_cambio['tipo_cambio']);
+        View::set('array_precios',$array_precios);
         View::render("principal_all");
     }
 
@@ -255,12 +266,18 @@ html;
     public function generaterQr(){
 
         $bandera = false;
+
+        if(!empty($_POST['clave'])){
+            $clave = $_POST['clave'];            
+        }else{
+            $clave = $this->generateRandomString();           
+        }
        
         $datos = json_decode($_POST['array'],true);
 
         $datos_user = HomeDao::getDataUser($this->getUsuario());
         // $metodo_pago = $_POST['metodo_pago'];
-        $clave = $this->generateRandomString();
+        
         $user_id = $datos_user['user_id'];
         $reference = $datos_user['reference'];
         // $tipo_pago = $metodo_pago;

@@ -81,12 +81,17 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4" style="display: flex; align-items: center; justify-content: center;">
+                        <div class="col-md-4" >
                             <div id="cont-image">
-                                <img src="<?=$src_qr?>" id="img_qr" style="width: 400px;" alt="">
+                                <img src="<?=$src_qr?>" id="img_qr" style="width: 400px; display: block; margin: 0 auto;<?=$ocultar?>" alt="" >
+                                <input type="hidden" id="clave" name="clave" value="<?=$clave?>">
+                                
                             </div>
-                            
+                            <div style="display: flex; justify-content: center;">
+                            <?=$btn_imp?>
+                            </div>
                         </div>
+                        
                     </div> 
                     <br>
                     <div class="row">
@@ -120,11 +125,7 @@
                         <div class="col-md-8">
 
                             <div id="buttons">
-                                <div class="row">
-                                        <div class="col-md-6">
-                                            <?=$btn_imp?>
-                                        </div>
-                                </div>
+                               
 
                                <!-- <div class="row">
                                     <div class="col-md-6">
@@ -197,57 +198,20 @@
     </main>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script>
+
+       
         
         $(document).ready(function() {
-           
-
-            $("#form_datos").on("submit", function(event) {
-                event.preventDefault();
-                var formData = new FormData(document.getElementById("form_datos"));
-
-                // for (var value of formData.values()) {
-                //     console.log(value);
-                // }
-                $.ajax({
-                    url: "/Login/saveData",
-                    type: "POST",
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    beforeSend: function() {
-                        console.log("Procesando....");
-                        // alert('Se está borrando');
-
-                    },
-                    success: function(respuesta) {
-                        console.log(respuesta);
-
-                        if (respuesta == 'success') {
-                            Swal.fire("¡Se creo el usuario correctamente!", "", "success").
-                            then((value) => {
-                                window.location.reload();
-                            });
-                        } else {
-                            Swal.fire("¡Hubo un error al crear el usuario!", "", "warning").
-                            then((value) => {
-                                window.location.reload();
-                            });
-                        }
-                    },
-                    error: function(respuesta) {
-                        console.log(respuesta);
-                        // alert('Error');
-                        Swal.fire("¡Hubo un error al crear el usuario!", "", "warning").
-                        then((value) => {
-                            window.location.reload();
-                        });
-                    }
-                });
-            });
-
-            var precios = [];
+            
+            // var precios=<?php echo json_encode($array_precios);?>;
+       
+            var precios = [];       
             var productos = [];
             var total = 0;
+
+            // console.log(precios_anteriores);
+
+            // console.log(precios_anteriores.length);
 
             $(".checks_product").on("change",function() {
                 var id_product = $(this).val();
@@ -320,8 +284,9 @@
 
             function sumarPrecios(precios){
                 console.log(precios);
-                var sumaPrecios = 0;
-                var sumaArticulos = 0;
+
+                var sumaPrecios = <?=$total_pago?>;
+                var sumaArticulos = <?=$total_productos?>;
 
                 precios.forEach(function(precio, index) {
 
@@ -347,6 +312,7 @@
             $("#btn_pago").on("click", function(event){
                 event.preventDefault();
                 // var metodo_pago = $("#metodo_pago").val();
+                var clave = $("#clave").val();
 
                 if(precios.length <= 0){
 
@@ -389,7 +355,7 @@
                             $.ajax({
                                 url: "/Home/generaterQr",
                                 type: "POST",
-                                data: {'array': JSON.stringify(precios)},
+                                data: {'array': JSON.stringify(precios),clave},
                                 cache: false,
                                 dataType: "json",
                                 // contentType: false,
@@ -404,6 +370,7 @@
 
                                     if(respuesta.status == 'success'){
                                         $("#img_qr").attr("src",respuesta.src);
+                                        $("#img_qr").css('display','block');
                                         Swal.fire("¡Mantenga a la mano su codigo QR para pagar en linea de cajas!", "", "success").
                                         then((value) => {
                                             window.location.reload();
