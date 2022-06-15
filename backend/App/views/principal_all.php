@@ -27,10 +27,10 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item text-sm"><a class="opacity-10 text-dark" href="javascript:;">Inicio</a></li>
-                        
+
                     </ol>
-                    
-                    
+
+
                 </nav>
 
                 <div id="cont_menu_end">
@@ -39,7 +39,7 @@
                         <li class="nav-item d-flex align-items-center">
                             <a href="/Account" class="nav-link text-body font-weight-bold  mx-0  px-0">
                                 <i class="fa fa-user me-sm-0"></i>
-                                
+
                                 <?php
                                 $apellido = $datos['surname'];
                                 $arr1 = str_split($apellido);
@@ -91,9 +91,9 @@
                 </div>
             </div>
 
-            
+
         </nav>
-        
+
         <div class="container-fluid py-0">
             <div class="card col-lg-12 mt-lg-4 mt-1">
                 <div class="card-header pb-0 p-3">
@@ -108,85 +108,85 @@
 
                             <div id="cont-checks">
 
-                                <?php echo $checks?>
-                               
-                                
+                                <?php echo $checks ?>
+
+
                             </div>
 
                             <div class="row">
-                        <div class="col-md-12">
+                                <div class="col-md-12">
 
-                            <div id="buttons">
-                                <input type="hidden" id="tipo_cambio" value="<?=$tipo_cambio?>">
-                               <div class="row">
-                                    <div class="col-md-6">
-                                        <p>Productos agregados: <span id="productos_agregados"><?=$total_productos?></span></p>
+                                    <div id="buttons">
+                                        <input type="hidden" id="tipo_cambio" value="<?= $tipo_cambio ?>">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p>Productos agregados: <span id="productos_agregados"><?= $total_productos ?></span></p>
+
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <p>Su pago en dolares es: $ <span id="total"><?= $total_pago ?></span> USD</p>
+
+                                                <p>Su pago en pesos mexicanos es: $ <span id="total_mx"><?= $total_pago_mx ?></span> </p>
+
+                                            </div>
+                                        </div>
+
 
                                     </div>
+                                </div>
 
-                                    <div class="col-md-6">
-                                        <p>Su pago en dolares es: $ <span id="total"><?=$total_pago?></span> USD</p>
-
-                                        <p>Su pago en pesos mexicanos es: $ <span id="total_mx"><?=$total_pago_mx?></span> </p>
-
-                                    </div>
-                               </div>
-                               
-                                
                             </div>
-                        </div>
-                       
-                    </div> 
 
 
-                    <div class="row">
-                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
 
-                            <div id="buttons">
+                                    <div id="buttons">
 
-                               <div class="row">
-                                    <div class="col-md-6">
-                                        
+                                        <div class="row">
+                                            <div class="col-md-6">
+
+
+                                            </div>
+
+                                            <div class="col-md-6" style="display: flex; justify-content: end;">
+
+                                                <button class="btn btn-primary" id="btn_pago" <?= $btn_block ?>>Proceder al pago</button>
+                                            </div>
+                                        </div>
+
 
                                     </div>
-
-                                    <div class="col-md-6" style="display: flex; justify-content: end;">
-                                        
-                                        <button class="btn btn-primary" id="btn_pago" <?=$btn_block?>>Proceder al pago</button>
-                                    </div>
-                               </div>
-                               
-                                
+                                </div>
                             </div>
-                        </div>
-                    </div>
 
                         </div>
 
-                        <div class="col-md-4" >
+                        <div class="col-md-4">
                             <div id="cont-image">
-                                <img src="<?=$src_qr?>" id="img_qr" style="width: auto; display: block; margin: 0 auto;<?=$ocultar?>" alt="" >
-                                <input type="hidden" id="clave" name="clave" value="<?=$clave?>">
-                                
+                                <img src="<?= $src_qr ?>" id="img_qr" style="width: auto; display: block; margin: 0 auto;<?= $ocultar ?>" alt="">
+                                <input type="hidden" id="clave" name="clave" value="<?= $clave ?>">
+
                             </div>
                             <div style="display: flex; justify-content: center;">
-                            <?=$btn_imp?>
+                                <?= $btn_imp ?>
                             </div>
                         </div>
-                        
-                    </div> 
-                    <br>
-                    
 
-                      
+                    </div>
+                    <br>
+
+
+
                     <br>
                     <div class="row">
                         <div class="col-md-8">
 
                             <div id="buttons">
-                               
 
-                               <!-- <div class="row">
+
+                                <!-- <div class="row">
                                     <div class="col-md-6">
                                         
 
@@ -203,19 +203,19 @@
                                         </div>
                                     </div>
                                </div> -->
-                               
-                                
+
+
                             </div>
                         </div>
-                    </div> 
+                    </div>
 
 
                     <br>
-                    
-                    
-                  
 
-                     <!-- <div class="table-responsive p-0">
+
+
+
+                    <!-- <div class="table-responsive p-0">
                                         <table class="align-items-center mb-0 table table-borderless" style="width:100%">
                                         <thead class="thead-light">
                                             <tr>
@@ -237,14 +237,11 @@
     </main>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script>
-
-       
-        
         $(document).ready(function() {
-            
-            // var precios=<?php echo json_encode($array_precios);?>;
-       
-            var precios = [];       
+
+            // var precios=<?php echo json_encode($array_precios); ?>;
+
+            var precios = [];
             var productos = [];
             var total = 0;
 
@@ -252,63 +249,113 @@
 
             // console.log(precios_anteriores.length);
 
-            $(".checks_product").on("change",function() {
+            $(".checks_product").on("change", function() {
                 var id_product = $(this).val();
                 var precio = $(this).attr('data-precio');
-                var cantidad = $("#numero_articulos"+id_product).val();
+                var cantidad = $("#numero_articulos" + id_product).val();
                 var nombre_producto = $(this).attr('data-nombre-producto');
 
-                
 
-                if(this.checked) {
-                   
-                   precios.push({'id_product':id_product,'precio':precio,'cantidad':cantidad});
-                   sumarPrecios(precios);
 
-                   productos.push({'id_product':id_product,'precio':precio,'cantidad':cantidad,'nombre_producto':nombre_producto});
-             
-                }else if(!this.checked){                   
-                   
-                    for(var i = 0; i < precios.length; i++) {
+                if (this.checked) {
 
-                        if(precios[i].id_product === id_product){                        
+                    precios.push({
+                        'id_product': id_product,
+                        'precio': precio,
+                        'cantidad': cantidad
+                    });
+                    sumarPrecios(precios);
+
+                    productos.push({
+                        'id_product': id_product,
+                        'precio': precio,
+                        'cantidad': cantidad,
+                        'nombre_producto': nombre_producto
+                    });
+
+                } else if (!this.checked) {
+
+                    for (var i = 0; i < precios.length; i++) {
+
+                        if (precios[i].id_product === id_product) {
                             console.log("remover");
-                            precios.splice(i,1);
+                            precios.splice(i, 1);
 
-                            productos.splice(i,1);
-                        }else if(precios[i].id_product === id_product && precios[i].cantidad === cantidad){
-                            precios.splice(i,1);
+                            productos.splice(i, 1);
+                        } else if (precios[i].id_product === id_product && precios[i].cantidad === cantidad) {
+                            precios.splice(i, 1);
 
-                            productos.splice(i,1);
-                            
+                            productos.splice(i, 1);
+
                         }
-                     
-                    
                     }
+
+                    $.ajax({
+                        url: "/Home/removePendientesPago",
+                        type: "POST",
+                        data: {
+                            id_product,cantidad
+                        },
+                        cache: false,
+                        beforeSend: function() {
+                            console.log("Procesando....");
+
+                        },
+                        success: function(respuesta) {
+
+                            console.log(respuesta);
+                            if(respuesta == "success"){
+                                location.reload();
+                            }
+
+                            // if (respuesta.status == 'success') {
+                            //     $("#img_qr").attr("src", respuesta.src);
+                            //     $("#img_qr").css('display', 'block');
+                            //     Swal.fire("¡Mantenga a la mano su codigo QR para pagar en linea de cajas!", "", "success").
+                            //     then((value) => {
+                            //         window.location.reload();
+                            //     });
+                            // }
+
+                        },
+                        error: function(respuesta) {
+                            console.log(respuesta);
+                        }
+
+                    });
                 }
                 console.log(productos);
                 sumarPrecios(precios);
 
             });
 
-            $(".select_numero_articulos").on("change",function(){
+            $(".select_numero_articulos").on("change", function() {
                 var id_producto = $(this).attr('data-id-producto');
-                var cantidad =  $(this).val();
+                var cantidad = $(this).val();
                 var precio = $(this).attr('data-precio');
                 var nombre_producto = $(this).attr('data-nombre-producto');
 
-                if($("#check_curso_"+id_producto).is(':checked')){
+                if ($("#check_curso_" + id_producto).is(':checked')) {
 
-                    for(var i = 0; i < precios.length; i++) {                   
+                    for (var i = 0; i < precios.length; i++) {
 
-                        if(precios[i].id_product === id_producto && precios[i].cantidad != cantidad){                        
+                        if (precios[i].id_product === id_producto && precios[i].cantidad != cantidad) {
                             console.log("remover");
-                            precios.splice(i,1,{'id_product':id_producto,'precio':precio,'cantidad':cantidad});
+                            precios.splice(i, 1, {
+                                'id_product': id_producto,
+                                'precio': precio,
+                                'cantidad': cantidad
+                            });
 
-                            productos.splice(i,1,{'id_product':id_producto,'precio':precio,'cantidad':cantidad,'nombre_producto':nombre_producto});
+                            productos.splice(i, 1, {
+                                'id_product': id_producto,
+                                'precio': precio,
+                                'cantidad': cantidad,
+                                'nombre_producto': nombre_producto
+                            });
 
                             // precios.push({'id_product':id_product,'precio':precio,'cantidad':cantidad});
-                        }                   
+                        }
 
                     }
                     console.log(precios.length);
@@ -316,23 +363,23 @@
                     console.log(productos);
 
                     sumarPrecios(precios);
-                    
-                }    
+
+                }
 
             });
 
-            function sumarPrecios(precios){
+            function sumarPrecios(precios) {
                 console.log(precios);
 
-                var sumaPrecios = <?=$total_pago?>;
-                var sumaArticulos = <?=$total_productos?>;
+                var sumaPrecios = <?= $total_pago ?>;
+                var sumaArticulos = <?= $total_productos ?>;
 
                 precios.forEach(function(precio, index) {
 
                     console.log("precio " + index + " | id_product: " + precio.id_product + " precio: " + parseInt(precio.precio) + " cantidad: " + parseInt(precio.cantidad))
 
-                    sumaPrecios += parseInt(precio.precio * precio.cantidad); 
-                    sumaArticulos += parseInt(precio.cantidad);                 
+                    sumaPrecios += parseInt(precio.precio * precio.cantidad);
+                    sumaArticulos += parseInt(precio.cantidad);
 
                 });
 
@@ -348,21 +395,21 @@
 
             }
 
-            $("#btn_pago").on("click", function(event){
+            $("#btn_pago").on("click", function(event) {
                 event.preventDefault();
                 // var metodo_pago = $("#metodo_pago").val();
                 var clave = $("#clave").val();
 
-                if(precios.length <= 0){
+                if (precios.length <= 0) {
 
                     Swal.fire("¡Debes seleccionar al menos un producto!", "", "warning")
 
-                }else{    
+                } else {
                     var plantilla_productos = '';
-                     
+
                     plantilla_productos += `<ul>`;
 
-                    
+
                     $.each(productos, function(key, value) {
                         console.log("funcioina");
                         console.log(value);
@@ -388,13 +435,16 @@
                         cancelButtonColor: '#d33',
                         cancelButtonText: 'Cancelar',
                         confirmButtonText: 'Procesar Compra'
-                        }).then((result) => {
-                        if (result.isConfirmed) {                        
-                                                
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+
                             $.ajax({
                                 url: "/Home/generaterQr",
                                 type: "POST",
-                                data: {'array': JSON.stringify(precios),clave},
+                                data: {
+                                    'array': JSON.stringify(precios),
+                                    clave
+                                },
                                 cache: false,
                                 dataType: "json",
                                 // contentType: false,
@@ -407,15 +457,15 @@
 
                                     console.log(respuesta);
 
-                                    if(respuesta.status == 'success'){
-                                        $("#img_qr").attr("src",respuesta.src);
-                                        $("#img_qr").css('display','block');
+                                    if (respuesta.status == 'success') {
+                                        $("#img_qr").attr("src", respuesta.src);
+                                        $("#img_qr").css('display', 'block');
                                         Swal.fire("¡Mantenga a la mano su codigo QR para pagar en linea de cajas!", "", "success").
                                         then((value) => {
                                             window.location.reload();
                                         });
                                     }
-                                
+
                                 },
                                 error: function(respuesta) {
                                     console.log(respuesta);
@@ -427,10 +477,8 @@
                 }
             });
 
-            
-        });
 
-       
+        });
     </script>
 
 

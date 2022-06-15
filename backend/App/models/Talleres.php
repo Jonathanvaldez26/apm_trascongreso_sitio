@@ -73,9 +73,25 @@ sql;
       FROM pendiente_pago pp
       INNER JOIN productos p ON (pp.id_producto = p.id_producto)
       INNER JOIN utilerias_administradores ua ON(pp.user_id = ua.user_id)
-      WHERE pp.user_id = $user_id AND pp.status = 0
+      WHERE pp.user_id = $user_id AND pp.status = 0 GROUP BY pp.id_producto
 sql;
       return $mysqli->queryAll($query);
+    }
+
+    public static function getCountProductos($user_id,$id_producto){
+      $mysqli = Database::getInstance();
+      $query=<<<sql
+      SELECT count(*) as numero_productos FROM pendiente_pago WHERE user_id = $user_id and id_producto = $id_producto;
+sql;
+      return $mysqli->queryAll($query);
+    }
+
+    public static function deletePendientesProductosByUser($user_id,$id_producto){
+      $mysqli = Database::getInstance(true);
+      $query=<<<sql
+      DELETE FROM pendiente_pago WHERE id_producto = $id_producto AND user_id = $user_id
+sql;
+        return $mysqli->delete($query);
     }
 
     

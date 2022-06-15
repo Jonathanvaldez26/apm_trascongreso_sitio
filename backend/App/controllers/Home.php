@@ -32,7 +32,7 @@ class Home extends Controller{
       </title>
 html;
 
-        
+        echo $_SESSION['user_id'];
 
 
         $data_user = HomeDao::getDataUser($this->__usuario);
@@ -72,17 +72,19 @@ html;
             
             $count_producto = HomeDao::getCountProductos($_SESSION['user_id'],$value['id_producto'])[0];
 
-            $total_productos += $count_producto['numero_productos'];
-            $total_pago += $count_producto['numero_productos'] * $precio;
+            
 
             if($value['estatus_compra'] == 1){
                 $disabled = 'disabled';
                 $checked = 'checked';
                 $pend_validar ='Pagado y validado por APM';
+                
             }else if($value['estatus_compra'] == null){
                 $pend_validar = 'Pendiente de validar';
-                $disabled = 'disabled';
+                // $disabled = 'disabled';
                 $checked = 'checked';
+                $total_productos += $count_producto['numero_productos'];
+                $total_pago += $count_producto['numero_productos'] * $precio;
                 array_push($array_precios,['id_product'=>$value['id_producto'],'precio'=>$precio,'cantidad'=>$count_producto['numero_productos']]);
             }
 
@@ -218,6 +220,19 @@ html;
         View::set('tipo_cambio',$tipo_cambio['tipo_cambio']);
         View::set('array_precios',$array_precios);
         View::render("principal_all");
+    }
+
+    public function removePendientesPago(){
+        // echo $_POST['id_product'];
+        // echo $_POST['cantidad'];
+
+        $delete = TalleresDao::deletePendientesProductosByUser($_SESSION['user_id'],$_POST['id_product']);
+
+        if($delete){
+            echo "success";
+        }else{
+            echo "fail";
+        }
     }
 
     public function generateModalComprar($datos){
@@ -412,22 +427,34 @@ html;
                 $precio = $value['precio_publico'];
             }
 
-            array_push($total,$precio);
+            
+
+            $total_productos = TalleresDao::getCountProductos($user_id,$value['id_producto'])[0];
+
+            $count_productos = $total_productos['numero_productos'];
+
+            // array_push($total,$precio);
+            array_push($total,($precio * $count_productos));
+
 
             //Nombre Curso
             $pdf->SetXY(22, $espace);
             $pdf->SetFont('Arial', 'B', 8);  
             $pdf->SetTextColor(0, 0, 0);
-            $pdf->Multicell(100, 4, utf8_decode($value['nombre']), 0, 'C');
+            $pdf->Multicell(100, 4, utf8_decode($value['nombre']) ." - cant.".$count_productos, 0, 'C');
 
             //Costo
             $pdf->SetXY(125, $espace);
             $pdf->SetFont('Arial', 'B', 8);  
             $pdf->SetTextColor(0, 0, 0);
-            $pdf->Multicell(100, 4, '$ '.$precio.' ' .$value['tipo_moneda'], 0, 'C');
+            $pdf->Multicell(100, 4, '$ '.number_format(($precio * $count_productos),2).' ' .$value['tipo_moneda'], 0, 'C');
 
             $espace = $espace + 5;
         }
+
+        $tipo_cambio = HomeDao::getTipoCambio()['tipo_cambio'];
+        // echo $tipo_cambio;
+        // exit;
 
         //folio
         $pdf->SetXY(92, 60.5);
@@ -441,8 +468,22 @@ html;
         $pdf->SetTextColor(0, 0, 0);
         $pdf->Multicell(100, 10, $fecha, 0, 'C');
 
+      
+
+        //total dolares
+        $pdf->SetXY(125, 202);
+        $pdf->SetFont('Arial', 'B', 13);  
+        $pdf->SetTextColor(0, 0, 0);
+        $pdf->Multicell(100, 10, number_format(array_sum($total)).' USD', 0, 'C');
+
+        //total pesos
+        $pdf->SetXY(125, 210.5);
+        $pdf->SetFont('Arial', 'B', 13);  
+        $pdf->SetTextColor(0, 0, 0);
+        $pdf->Multicell(100, 10, '$ '.number_format($tipo_cambio * array_sum($total),2), 0, 'C');
+
         //imagen Qr
-        $pdf->Image('qrs/'.$clave.'.png' , 160 ,210, 35 , 38,'PNG');
+        $pdf->Image('qrs/'.$clave.'.png' , 152 ,245, 35 , 38,'PNG');
 
 
         $pdf->Output();
