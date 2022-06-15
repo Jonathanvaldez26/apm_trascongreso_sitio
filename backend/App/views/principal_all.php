@@ -27,8 +27,38 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item text-sm"><a class="opacity-10 text-dark" href="javascript:;">Inicio</a></li>
+                        
                     </ol>
+                    
+                    
                 </nav>
+
+                <div id="cont_menu_end">
+
+                    <ul class="navbar-nav  justify-content-end">
+                        <li class="nav-item d-flex align-items-center">
+                            <a href="/Account" class="nav-link text-body font-weight-bold  mx-0  px-0">
+                                <i class="fa fa-user me-sm-0"></i>
+                                
+                                <?php
+                                $apellido = $datos['surname'];
+                                $arr1 = str_split($apellido);
+
+                                ?>
+                                <span class="d-sm-inline "><?php echo $datos['name_user'] . " " . $arr1[0] . "."; ?></span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item d-flex align-items-center">
+                            <a href="/Login/cerrarSession" class="nav-link text-body font-weight-bold px-0">
+                                <i class="fa fa-power-off me-sm-1"></i>
+                                <span class="d-sm-inline ">Logout</span>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
 
                 <input type="hidden" name="datos" id="datos" value="<?php echo $datos; ?>">
                 <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
@@ -46,7 +76,7 @@
                                 $arr1 = str_split($apellido);
 
                                 ?>
-                                <span class="d-sm-inline d-none"><?php echo $datos['name_user'] . " " . $arr1[0] . "."; ?></span>
+                                <span class="d-sm-inline "><?php echo $datos['name_user'] . " " . $arr1[0] . "."; ?></span>
                             </a>
                         </li>
                     </ul>
@@ -54,13 +84,16 @@
                         <li class="nav-item d-flex align-items-center">
                             <a href="/Login/cerrarSession" class="nav-link text-body font-weight-bold px-0">
                                 <i class="fa fa-power-off me-sm-1"></i>
-                                <span class="d-sm-inline d-none">Logout</span>
+                                <span class="d-sm-inline ">Logout</span>
                             </a>
                         </li>
                     </ul>
                 </div>
             </div>
+
+            
         </nav>
+        
         <div class="container-fluid py-0">
             <div class="card col-lg-12 mt-lg-4 mt-1">
                 <div class="card-header pb-0 p-3">
