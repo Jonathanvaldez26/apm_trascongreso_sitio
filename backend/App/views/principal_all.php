@@ -112,23 +112,9 @@
                                
                                 
                             </div>
-                        </div>
 
-                        <div class="col-md-4" >
-                            <div id="cont-image">
-                                <img src="<?=$src_qr?>" id="img_qr" style="width: 400px; display: block; margin: 0 auto;<?=$ocultar?>" alt="" >
-                                <input type="hidden" id="clave" name="clave" value="<?=$clave?>">
-                                
-                            </div>
-                            <div style="display: flex; justify-content: center;">
-                            <?=$btn_imp?>
-                            </div>
-                        </div>
-                        
-                    </div> 
-                    <br>
-                    <div class="row">
-                        <div class="col-md-8">
+                            <div class="row">
+                        <div class="col-md-12">
 
                             <div id="buttons">
                                 <input type="hidden" id="tipo_cambio" value="<?=$tipo_cambio?>">
@@ -151,6 +137,46 @@
                         </div>
                        
                     </div> 
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div id="buttons">
+
+                               <div class="row">
+                                    <div class="col-md-6">
+                                        
+
+                                    </div>
+
+                                    <div class="col-md-6" style="display: flex; justify-content: end;">
+                                        
+                                        <button class="btn btn-primary" id="btn_pago" <?=$btn_block?>>Proceder al pago</button>
+                                    </div>
+                               </div>
+                               
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                        </div>
+
+                        <div class="col-md-4" >
+                            <div id="cont-image">
+                                <img src="<?=$src_qr?>" id="img_qr" style="width: auto; display: block; margin: 0 auto;<?=$ocultar?>" alt="" >
+                                <input type="hidden" id="clave" name="clave" value="<?=$clave?>">
+                                
+                            </div>
+                            <div style="display: flex; justify-content: center;">
+                            <?=$btn_imp?>
+                            </div>
+                        </div>
+                        
+                    </div> 
+                    <br>
+                    
 
                       
                     <br>
@@ -185,27 +211,7 @@
 
 
                     <br>
-                    <div class="row">
-                        <div class="col-md-8">
-
-                            <div id="buttons">
-
-                               <div class="row">
-                                    <div class="col-md-6">
-                                        
-
-                                    </div>
-
-                                    <div class="col-md-6" style="display: flex; justify-content: end;">
-                                        
-                                        <button class="btn btn-primary" id="btn_pago" <?=$btn_block?>>Proceder al pago</button>
-                                    </div>
-                               </div>
-                               
-                                
-                            </div>
-                        </div>
-                    </div>
+                    
                     
                   
 
