@@ -188,9 +188,6 @@ html;
         // var_dump($array_precios);
         // exit;
 
-        echo $total_pago;
-
-
         // var_dump($tipo_cambio['tipo_cambio']);
         // exit;
         //las dos lineas de arriba son para sacar el tipo de cambio por posicion
