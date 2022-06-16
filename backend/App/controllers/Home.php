@@ -32,9 +32,6 @@ class Home extends Controller{
       </title>
 html;
 
-        echo $_SESSION['user_id'];
-
-
         $data_user = HomeDao::getDataUser($this->__usuario);
 
         $productos_pendientes_comprados = HomeDao::getProductosPendComprados($data_user['user_id']);
@@ -78,9 +75,13 @@ html;
                 $disabled = 'disabled';
                 $checked = 'checked';
                 $pend_validar ='Pagado y validado por APM';
+                $btn_imp = '';
+                $ocultar = 'display:none;';
                 
             }else if($value['estatus_compra'] == null){
                 $pend_validar = 'Pendiente de validar';
+                $btn_imp = '<a class="btn btn-primary" href="/Home/print/'.$productos_pendientes_comprados[0]['clave'].'" target="blank_">Imprimir</a>';
+                $ocultar = '';
                 // $disabled = 'disabled';
                 $checked = 'checked';
                 $total_productos += $count_producto['numero_productos'];
@@ -194,14 +195,14 @@ html;
         // exit;
         //las dos lineas de arriba son para sacar el tipo de cambio por posicion
 
-        if($src_qr != ''){
-            // $btn_imp = '<a class="btn btn-primary" onclick="javascript:window.print();">Imprimir</a>';
-            $btn_imp = '<a class="btn btn-primary" href="/Home/print/'.$productos_pendientes_comprados[0]['clave'].'" target="blank_">Imprimir</a>';
-            $ocultar = '';
-        }else{
-            $btn_imp = '';
-            $ocultar = 'display:none;';
-        }
+        // if($src_qr != ''){
+        //     // $btn_imp = '<a class="btn btn-primary" onclick="javascript:window.print();">Imprimir</a>';
+        //     $btn_imp = '<a class="btn btn-primary" href="/Home/print/'.$productos_pendientes_comprados[0]['clave'].'" target="blank_">Imprimir</a>';
+        //     $ocultar = '';
+        // }else{
+        //     $btn_imp = '';
+        //     $ocultar = 'display:none;';
+        // }
 
         $clave = $productos_pendientes_comprados[0]['clave'];
 
