@@ -245,6 +245,12 @@
             var productos = [];
             var total = 0;
 
+            // if (precios.length <= 0) {
+
+            //     $("#btn_pago").attr('disabled','disabled');
+
+            // }
+
             // console.log(precios_anteriores);
 
             // console.log(precios_anteriores.length);
@@ -403,6 +409,7 @@
                 if (precios.length <= 0) {
 
                     Swal.fire("¡Debes seleccionar al menos un producto!", "", "warning")
+                   
 
                 } else {
                     var plantilla_productos = '';

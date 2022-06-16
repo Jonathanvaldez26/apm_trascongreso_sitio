@@ -41,9 +41,11 @@ html;
         $check_disabled = '';
         $array_precios = [];
 
+        $clave = HomeDao::getProductosPendCompradosClave($data_user['user_id'])[0]['clave'];
 
-        if($productos_pendientes_comprados[0]['clave'] != ""){
-            $src_qr = '/qrs/'.$productos_pendientes_comprados[0]['clave'].'.png';           
+
+        if($clave != ""){
+            $src_qr = '/qrs/'.$clave.'.png';           
             // $btn_block = 'style = "display:none"';
             // $check_disabled = 'disabled';
         }else{
@@ -80,7 +82,7 @@ html;
                 
             }else if($value['estatus_compra'] == null){
                 $pend_validar = 'Pendiente de validar';
-                $btn_imp = '<a class="btn btn-primary" href="/Home/print/'.$productos_pendientes_comprados[0]['clave'].'" target="blank_">Imprimir</a>';
+                $btn_imp = '<a class="btn btn-primary" href="/Home/print/'.$productos_pendientes_comprados[0]['clave'].'" target="blank_">Imprimir Formato de Pago</a>';
                 $ocultar = '';
                 // $disabled = 'disabled';
                 $checked = 'checked';
@@ -203,9 +205,6 @@ html;
         //     $btn_imp = '';
         //     $ocultar = 'display:none;';
         // }
-
-        $clave = $productos_pendientes_comprados[0]['clave'];
-
   
         View::set('header',$this->_contenedor->header($extraHeader));   
         View::set('datos',$data_user);

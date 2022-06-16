@@ -166,12 +166,25 @@ sql;
   public static function getProductosPendComprados($id){
     $mysqli = Database::getInstance();
     $query=<<<sql
-    SELECT pp.id_producto,pp.clave,pp.status,ua.name_user,ua.amout_due,aspro.status as estatus_compra,pro.nombre as nombre_producto, pro.precio_publico, pro.tipo_moneda, pro.max_compra, pro.es_congreso, pro.es_servicio, pro.es_curso
+    SELECT pp.id_producto,pp.clave, pp.comprado_en,pp.status,ua.name_user,aspro.status as estatus_compra,ua.amout_due,pro.nombre as nombre_producto, pro.precio_publico, pro.tipo_moneda, pro.max_compra, pro.es_congreso, pro.es_servicio, pro.es_curso
+    FROM pendiente_pago pp
+    INNER JOIN utilerias_administradores ua ON(ua.user_id = pp.user_id)
+    INNER JOIN productos pro ON (pp.id_producto = pro.id_producto)
+    LEFT JOIN asigna_producto aspro ON(pp.user_id = aspro.user_id AND pp.id_producto = aspro.id_producto)
+    WHERE ua.user_id = $id;
+sql;
+    return $mysqli->queryAll($query);
+  }
+
+  public static function getProductosPendCompradosClave($id){
+    $mysqli = Database::getInstance();
+    $query=<<<sql
+    SELECT pp.id_producto,pp.clave, pp.comprado_en,pp.status,ua.name_user,ua.amout_due,aspro.status as estatus_compra,pro.nombre as nombre_producto, pro.precio_publico, pro.tipo_moneda, pro.max_compra, pro.es_congreso, pro.es_servicio, pro.es_curso
     FROM pendiente_pago pp
     INNER JOIN utilerias_administradores ua ON(ua.user_id = pp.user_id)
     INNER JOIN productos pro ON (pp.id_producto = pro.id_producto)
     LEFT JOIN asigna_producto aspro ON(aspro.id_producto = pp.id_producto)
-    WHERE ua.user_id = $id GROUP BY pp.id_producto;
+    WHERE ua.user_id = $id AND pp.comprado_en = 2 GROUP BY pp.id_producto
 sql;
     return $mysqli->queryAll($query);
   }
