@@ -171,7 +171,7 @@ sql;
     INNER JOIN utilerias_administradores ua ON(ua.user_id = pp.user_id)
     INNER JOIN productos pro ON (pp.id_producto = pro.id_producto)
     LEFT JOIN asigna_producto aspro ON(pp.user_id = aspro.user_id AND pp.id_producto = aspro.id_producto)
-    WHERE ua.user_id = $id;
+    WHERE ua.user_id = $id GROUP BY id_producto;
 sql;
     return $mysqli->queryAll($query);
   }
