@@ -45,7 +45,8 @@ html;
 
 
         if($clave != ""){
-            $src_qr = '/qrs/'.$clave.'.png';           
+            $src_qr = '/qrs/'.$productos_pendientes_comprados[0]['clave'].'.png';
+            // $src_qr = '/qrs/'.$clave.'.png';           
             // $btn_block = 'style = "display:none"';
             // $check_disabled = 'disabled';
         }else{
