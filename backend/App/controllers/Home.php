@@ -78,8 +78,9 @@ html;
                 $disabled = 'disabled';
                 $checked = 'checked';
                 $pend_validar ='Pagado y validado por APM';
-                $btn_imp = '';
-                $ocultar = 'display:none;';
+                // $btn_imp = '';
+                $productos_pendientes_comprados[0]['clave'].'" target="blank_">Imprimir Formato de Pago</a>';
+                // $ocultar = 'display:none;';
                 
             }else if($value['estatus_compra'] == null){
                 $pend_validar = 'Pendiente de validar';
