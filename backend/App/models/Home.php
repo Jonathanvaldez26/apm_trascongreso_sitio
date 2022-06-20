@@ -166,7 +166,7 @@ sql;
   public static function getProductosPendComprados($id){
     $mysqli = Database::getInstance();
     $query=<<<sql
-    SELECT pp.id_producto,pp.clave, pp.comprado_en,pp.status,ua.name_user,aspro.status as estatus_compra,ua.amout_due,pro.nombre as nombre_producto, pro.precio_publico, pro.tipo_moneda, pro.max_compra, pro.es_congreso, pro.es_servicio, pro.es_curso
+    SELECT pp.id_producto,pp.clave, pp.comprado_en,pp.status,ua.name_user,ua.clave_socio,aspro.status as estatus_compra,ua.amout_due,pro.nombre as nombre_producto, pro.precio_publico, pro.tipo_moneda, pro.max_compra, pro.es_congreso, pro.es_servicio, pro.es_curso
     FROM pendiente_pago pp
     INNER JOIN utilerias_administradores ua ON(ua.user_id = pp.user_id)
     INNER JOIN productos pro ON (pp.id_producto = pro.id_producto)
@@ -192,8 +192,10 @@ sql;
   public static function getProductosNoComprados($id){
     $mysqli = Database::getInstance();
     $query=<<<sql
-    SELECT id_producto, nombre as nombre_producto, precio_publico, tipo_moneda, max_compra, es_congreso, es_servicio, es_curso FROM productos 
-    WHERE id_producto NOT IN (SELECT id_producto FROM pendiente_pago WHERE user_id = $id);
+    SELECT p.id_producto, p.nombre as nombre_producto, p.precio_publico, p.tipo_moneda, p.max_compra, p.es_congreso, p.es_servicio, p.es_curso, ua.clave_socio, ua.amout_due 
+    FROM productos p
+    INNER JOIN utilerias_administradores ua
+    WHERE id_producto NOT IN (SELECT id_producto FROM pendiente_pago WHERE user_id = $id) AND ua.user_id = $id;
 sql;
     return $mysqli->queryAll($query);
   }
