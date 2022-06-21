@@ -303,9 +303,9 @@ echo $header;
                                                         <div id="card_four" class="card multisteps-form__panel p-3 border-radius-xl bg-white" data-animation="FadeIn">
                                                             <div class="row text-center">
                                                                 <div class="col-10 mx-auto">
-                                                                    <h5 class="font-weight-normal">Payment Method</h5>
-                                                                    <p>You will have a maximum of 5 days to make your payment and upload your voucher to the system. Y Complete the form with your VAT information If you require a
-                                                                        tax deductible receipt.</p>
+                                                                    <h5 class="font-weight-normal">Metodo de Pago</h5>
+                                                                    <p>Deberas Realizar tu pago en línea de cajas. Y Complete el formulario con sus datos de IVA Si requiere un
+                                                                        recibo deducible de impuestos.</p>
                                                                 </div>
                                                             </div>
                                                             <div class="multisteps-form__content">
@@ -376,7 +376,7 @@ echo $header;
                                                                 <div class="row text-center">
                                                                     <div class="col-10 mx-auto">
                                                                         <br>
-                                                                        <p class="mb-0 text-sm">To finish your registration select a method of payment to the event</p>
+                                                                        <p class="mb-0 text-sm">Para finalizar tu inscripción selecciona un método de pago al evento</p>
                                                                     </div>
                                                                 </div>
                                                                 <div class="button-row d-flex mt-4">
@@ -442,7 +442,7 @@ echo $header;
                                                                     </div>
                                                                     <div class="row text-center mt-1">
                                                                         <div class="col-10 mx-auto">
-                                                                            <p class="mb-0 text-sm">Una vez que el pago haya sido ifentificado, usted recibirá su factura dentro de las 48 horas posteriores. Para reportar retrasos, favor de enviar un correo con su comprobante de pago adjunto a apm@psiquiatrasapm.org.mx recuerde que la expedición de facturas solo podrá realizarse en el mes correspondiente al pago.</p>
+                                                                            <p class="mb-0 text-sm">Una vez que realice el pago, usted recibirá su factura dentro de las 48 horas posteriores. Para reportar retrasos, favor de enviar un correo con su comprobante de pago adjunto a apm@psiquiatrasapm.org.mx recuerde que la expedición de facturas solo podrá realizarse en el mes correspondiente al pago.</p>
                                                                         </div>
                                                                     </div>
                                                                     <div class="button-row d-flex mt-1">
@@ -500,7 +500,7 @@ enlace a continuación a nuestro Aviso de privacidad.
                                                                         </textarea>
 
                                                                     <div class="button-row mt-2">
-                                                                        <button class="btn bg-gradient-success ms-auto mb-0" type="submit">I HAVE READ THE TERMS AND CONDITIONS AND I AGREE</button>
+                                                                        <button class="btn bg-gradient-success ms-auto mb-0" type="submit">HE LEÍDO LOS TÉRMINOS Y CONDICIONES Y ACEPTO</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
