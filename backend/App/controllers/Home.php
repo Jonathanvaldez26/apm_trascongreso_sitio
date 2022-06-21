@@ -408,7 +408,7 @@ html;
     {
         date_default_timezone_set('America/Mexico_City');
 
-        // $this->generaterQr($clave_ticket);
+        // $this->generaterQr($clave);
 
         $datos_user = HomeDao::getDataUser($this->getUsuario());
         $user_id = $datos_user['user_id'];
