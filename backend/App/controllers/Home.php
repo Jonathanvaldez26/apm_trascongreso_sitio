@@ -514,6 +514,12 @@ html;
         $pdf->SetTextColor(0, 0, 0);
         $pdf->Multicell(100, 10, $fecha, 0, 'C');
 
+        //Nombre
+        $pdf->SetXY(80, 90);
+        $pdf->SetFont('Arial', 'B', 13);  
+        $pdf->SetTextColor(0, 0, 0);
+        $pdf->Multicell(100, 10, $nombre_completo, 0, 'C');
+
       
 
         //total dolares
