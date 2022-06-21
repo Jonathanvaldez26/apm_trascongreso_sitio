@@ -62,12 +62,20 @@ html;
             $checked = '';
             $pend_validar ='';
 
-            if($value['es_congreso'] == 1){
+            if($value['es_congreso'] == 1 && $value['clave_socio'] == ""){
                 $precio = $value['amout_due'];
-            }else if($value['es_servicio'] == 1){
+            }elseif($value['es_congreso'] == 1 && $value['clave_socio'] != ""){
+                $precio = $value['amout_due'];
+            }
+            else if($value['es_servicio'] == 1 && $value['clave_socio'] == ""){
                 $precio = $value['precio_publico'];
-            }else if($value['es_curso'] == 1){
+            }else if($value['es_servicio'] == 1 && $value['clave_socio'] != ""){
+                $precio = 0;
+            }
+            else if($value['es_curso'] == 1  && $value['clave_socio'] == ""){
                 $precio = $value['precio_publico'];
+            }else if($value['es_curso'] == 1  && $value['clave_socio'] != ""){
+                $precio = 0;
             }
             
             $count_producto = HomeDao::getCountProductos($_SESSION['user_id'],$value['id_producto'])[0];
@@ -135,17 +143,33 @@ html;
         foreach($productos_no_comprados as $key => $value) {
 
             
-            if($data_user['amout_due'] != null || $data_user['amout_due'] != ''){
+            // if($data_user['amout_due'] != null || $data_user['amout_due'] != ''){
 
-                if($value['es_congreso'] == 1){
-                    $precio = $data_user['amout_due'];
-                }else if($value['es_servicio'] == 1){
-                    $precio = $value['precio_publico'];
-                }else if($value['es_curso'] == 1){
-                    $precio = $value['precio_publico'];
-                }
-            }else{
+                // if($value['es_congreso'] == 1){
+                //     $precio = $data_user['amout_due'];
+                // }else if($value['es_servicio'] == 1){
+                //     $precio = $value['precio_publico'];
+                // }else if($value['es_curso'] == 1){
+                //     $precio = $value['precio_publico'];
+                // }
+            // }else{
+            //     $precio = $value['precio_publico'];
+            // }
+
+            if($value['es_congreso'] == 1 && $value['clave_socio'] == ""){
+                $precio = $value['amout_due'];
+            }elseif($value['es_congreso'] == 1 && $value['clave_socio'] != ""){
+                $precio = $value['amout_due'];
+            }
+            else if($value['es_servicio'] == 1 && $value['clave_socio'] == ""){
                 $precio = $value['precio_publico'];
+            }else if($value['es_servicio'] == 1 && $value['clave_socio'] != ""){
+                $precio = 0;
+            }
+            else if($value['es_curso'] == 1  && $value['clave_socio'] == ""){
+                $precio = $value['precio_publico'];
+            }else if($value['es_curso'] == 1  && $value['clave_socio'] != ""){
+                $precio = 0;
             }
 
             if($value['max_compra'] <= 1){
@@ -421,14 +445,34 @@ html;
         foreach($productos as $key => $value){            
             
             
-            if($value['es_congreso'] == 1){
-                $precio = $value['amout_due'];
-            }else if($value['es_servicio'] == 1){
-                $precio = $value['precio_publico'];
-            }else if($value['es_curso'] == 1){
-                $precio = $value['precio_publico'];
-            }
+            // if($value['es_congreso'] == 1){
+            //     $precio = $value['amout_due'];
+            // }else if($value['es_servicio'] == 1){
+            //     $precio = $value['precio_publico'];
+            // }else if($value['es_curso'] == 1){
+            //     $precio = $value['precio_publico'];
+            // }
 
+            if($value['es_congreso'] == 1 && $value['clave_socio'] == ""){
+                $precio = $value['amout_due'];
+                $socio = "";
+            }elseif($value['es_congreso'] == 1 && $value['clave_socio'] != ""){
+                $precio = $value['amout_due'];
+                $socio = "";
+            }
+            else if($value['es_servicio'] == 1 && $value['clave_socio'] == ""){
+                $precio = $value['precio_publico'];
+                $socio = "";
+            }else if($value['es_servicio'] == 1 && $value['clave_socio'] != ""){
+                $precio = 0;
+                $socio = "Socio APM - Sin Costo";
+            }
+            else if($value['es_curso'] == 1  && $value['clave_socio'] == ""){
+                $precio = $value['precio_publico'];
+            }else if($value['es_curso'] == 1  && $value['clave_socio'] != ""){
+                $precio = 0;
+                $socio = "Socio APM - Sin Costo";
+            }
             
 
             $total_productos = TalleresDao::getCountProductos($user_id,$value['id_producto'])[0];
@@ -443,7 +487,7 @@ html;
             $pdf->SetXY(22, $espace);
             $pdf->SetFont('Arial', 'B', 8);  
             $pdf->SetTextColor(0, 0, 0);
-            $pdf->Multicell(100, 4, utf8_decode($value['nombre']) ." - cant.".$count_productos, 0, 'C');
+            $pdf->Multicell(100, 4, utf8_decode($value['nombre']) ." - cant.".$count_productos." - ".$socio, 0, 'C');
 
             //Costo
             $pdf->SetXY(125, $espace);
