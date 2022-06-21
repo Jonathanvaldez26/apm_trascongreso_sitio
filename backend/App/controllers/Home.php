@@ -451,7 +451,7 @@ html;
             $pdf->SetTextColor(0, 0, 0);
             $pdf->Multicell(100, 4, '$ '.number_format(($precio * $count_productos),2).' ' .$value['tipo_moneda'], 0, 'C');
 
-            $espace = $espace + 5;
+            $espace = $espace + 8;
         }
 
         $tipo_cambio = HomeDao::getTipoCambio()['tipo_cambio'];
