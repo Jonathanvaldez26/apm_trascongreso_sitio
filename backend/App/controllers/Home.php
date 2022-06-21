@@ -41,12 +41,14 @@ html;
         $check_disabled = '';
         $array_precios = [];
 
-        $clave = HomeDao::getProductosPendCompradosClave($data_user['user_id'])[0]['clave'];
+        // $clave = HomeDao::getProductosPendCompradosClave($data_user['user_id'])[0]['clave'];
 
+        $clave = HomeDao::getLastQrPendientePago($data_user['user_id'])['clave'];
 
+     
         if($clave != ""){
-            $src_qr = '/qrs/'.$productos_pendientes_comprados[0]['clave'].'.png';
-            // $src_qr = '/qrs/'.$clave.'.png';           
+            // $src_qr = '/qrs/'.$productos_pendientes_comprados[0]['clave'].'.png';
+            $src_qr = '/qrs/'.$clave.'.png';           
             // $btn_block = 'style = "display:none"';
             // $check_disabled = 'disabled';
         }else{

@@ -176,6 +176,14 @@ sql;
     return $mysqli->queryAll($query);
   }
 
+  public static function getLastQrPendientePago($user_id){
+    $mysqli = Database::getInstance(true);
+    $query=<<<sql
+    SELECT * FROM pendiente_pago WHERE user_id = $user_id ORDER BY id_pendiente_pago DESC LIMIT 1
+sql;
+    return $mysqli->queryOne($query);
+  }
+
   public static function getProductosPendCompradosClave($id){
     $mysqli = Database::getInstance();
     $query=<<<sql
